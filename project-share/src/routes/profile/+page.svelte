@@ -1,5 +1,7 @@
 <script>
     import { Row, Col, Card, Button } from 'spaper';
+  	import { authStore } from '../../stores/authStore.js';
+	import Auth from '../../components/Auth.svelte';
   
     let user = {
       name: 'John Doe',
@@ -39,7 +41,7 @@
       // Add more user discussions as needed
     ];
   </script>
-  
+  {#if $authStore}
   <div class="container">
     <Row>
       <Col md="4">
@@ -72,3 +74,6 @@
       </Col>
     </Row>
   </div>
+  {:else}
+  <Auth />
+{/if}

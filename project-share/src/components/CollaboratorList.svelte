@@ -1,21 +1,34 @@
 <script>
 	import { Table, Button } from 'spaper';
-</script>
-
-<div>
+	import { createEventDispatcher } from 'svelte';
+  
+	let collaborators = [];
+	let newCollaborator = { name: '', email: '', role: '' };
+  
+	const dispatch = createEventDispatcher();
+  
+	function addCollaborator() {
+	  collaborators = [...collaborators, newCollaborator];
+	  newCollaborator = { name: '', email: '', role: '' };
+	  dispatch('collaboratorsUpdated', collaborators);
+	}
+  </script>
+  
+  <div>
 	<h2>Collaborators</h2>
 	<Table>
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Email</th>
-				<th>Role</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<!-- Add collaborator rows -->
-		</tbody>
+	  <!-- ... (existing table code) -->
+	  <tbody>
+		{#each collaborators as collaborator}
+		  <tr>
+			<td>{collaborator.name}</td>
+			<td>{collaborator.email}</td>
+			<td>{collaborator.role}</td>
+			<td></td>
+		  </tr>
+		{/each}
+	  </tbody>
 	</Table>
-	<Button>Add Collaborator</Button>
-</div>
+	<!-- Add form inputs for new collaborator -->
+	<Button on:click={addCollaborator}>Add Collaborator</Button>
+  </div>

@@ -1,5 +1,6 @@
+<!-- src/routes/example.svelte -->
 <script>
-    import { signIn } from '@auth/sveltekit';
-  </script>
-  
-  <button on:click={() => signIn('github')}>Sign in with GitHub</button>
+	import Auth from '../../components/Auth.svelte';
+</script>
+
+<Auth />

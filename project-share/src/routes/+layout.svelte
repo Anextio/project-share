@@ -2,13 +2,12 @@
 	import '../app.pcss';
 	import 'papercss/dist/paper.min.css';
 	import Header from '../components/Header.svelte';
-	import { handle } from '../auth/oauth.js'
-	import sequelize from '../db.js';
-	import '../models/User.js';
+	import { onMount } from 'svelte';
+	import { authStore } from '../stores/authStore';
 
-	export async function load() {
-		await sequelize.sync();
-	}
+	onMount(() => {
+		authStore.init();
+	})
 </script>
 
 <Header />

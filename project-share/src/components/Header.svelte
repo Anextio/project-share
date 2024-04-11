@@ -10,7 +10,7 @@
 	function handleCreateProject() {
 		// Logic to handle the creation of a project
 		console.log('Create project clicked');
-		goto('/project/create');
+		goto('/projects/create');
 	}
 </script>
 
@@ -21,7 +21,7 @@
 
 	<ul class="inline">
 		<li>
-			<Input placeholder="Search for projects, discussions, and users" bind:value={searchQuery} />
+			<Input placeholder="Search" bind:value={searchQuery} />
 		</li>
 		<li>
 			<Button size="small" on:click={handleSearch}>Search</Button>

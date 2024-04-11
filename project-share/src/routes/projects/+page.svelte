@@ -15,7 +15,6 @@
 
   onMount(loadProjects);
 </script>
-
 <div class="container">
   <Row>
     {#each projects as project}
