@@ -1,6 +1,6 @@
 <script>
-  import {Navbar, Input, Button} from 'spaper';
-  import { goto } from '$app/navigation';
+	import { Navbar, Input, Button } from 'spaper';
+	import { goto } from '$app/navigation';
 
 	let searchQuery = '';
 	function handleSearch() {
@@ -10,29 +10,27 @@
 	function handleCreateProject() {
 		// Logic to handle the creation of a project
 		console.log('Create project clicked');
-    goto('/project/create');
+		goto('/project/create');
 	}
 </script>
 
-<Navbar >	
-    <h3 slot="brand">
-      <a href="/">Logo</a>
-    </h3> 
-	
-			<ul class="inline">
-        <li>
-          <Input 
-          placeholder="Search for projects, discussions, and users" 
-          bind:value={searchQuery} />          
-        </li>
-        <li>
-          <Button size="small" on:click={handleSearch}>Search</Button>
-        </li>
-        <li></li>
-				<li><a href="/">Home</a></li>
-				<li><a href="/projects">Projects</a></li>
-				<li><a href="/discussions">Discussions</a></li>
-				<li><a href="/profile">Profile</a></li>
-        <li><Button size="small" on:click={handleCreateProject}>Create Project</Button></li>
-			</ul>	
+<Navbar>
+	<h3 slot="brand">
+		<a href="/">Logo</a>
+	</h3>
+
+	<ul class="inline">
+		<li>
+			<Input placeholder="Search for projects, discussions, and users" bind:value={searchQuery} />
+		</li>
+		<li>
+			<Button size="small" on:click={handleSearch}>Search</Button>
+		</li>
+		<li></li>
+		<li><a href="/">Home</a></li>
+		<li><a href="/projects">Projects</a></li>
+		<li><a href="/discussions">Discussions</a></li>
+		<li><a href="/profile">Profile</a></li>
+		<li><Button size="small" on:click={handleCreateProject}>Create Project</Button></li>
+	</ul>
 </Navbar>

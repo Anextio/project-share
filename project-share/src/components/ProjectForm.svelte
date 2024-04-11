@@ -42,7 +42,13 @@
 	</Row>
 	<Row>
 		<Col>
-			<Input label="Project Files" type="file" id="project-image" multiple on:change={handleFileChange} />
+			<Input
+				label="Project Files"
+				type="file"
+				id="project-image"
+				multiple
+				on:change={handleFileChange}
+			/>
 		</Col>
 	</Row>
 </Form>
