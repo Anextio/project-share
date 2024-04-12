@@ -1,13 +1,13 @@
 <script>
   import { onMount } from 'svelte';
   import { Row, Col, Card } from 'spaper';
+  import { getAllProjects } from '$lib/projectsApi'
 
   let projects = [];
 
   async function loadProjects() {
     try {
-      const response = await fetch('/api/projects');
-      projects = await response.json();
+      projects = await getAllProjects();
     } catch (error) {
       console.error('Error loading projects:', error);
     }

@@ -1,12 +1,14 @@
 <script>
 	import ProjectCard from './ProjectCard.svelte';
 	import { Row, Col } from 'spaper';
+	import { getMostDiscussedProjects } from '$lib/projectsApi';
+	import { onMount } from 'svelte';
 
-	let projects = [
-		{ id: 1, title: 'Project 1', description: 'Description 1' },
-		{ id: 2, title: 'Project 2', description: 'Description 2' },
-		{ id: 3, title: 'Project 3', description: 'Description 3' }
-	];
+	let projects = []
+
+	onMount(async () => {
+    projects = await getMostDiscussedProjects();
+  });
 </script>
 
 <h2>Explore Projects</h2>

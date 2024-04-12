@@ -57,6 +57,7 @@
 		"papercss": "^1.9.2",
 		"spaper": "^1.4.0",
 		"svelte-sonner": "^0.3.21",
+		"svelte-tags-input": "^6.0.0",
 		"sveltekit-superforms": "^2.12.4",
 		"tailwind-merge": "^2.2.2",
 		"tailwind-variants": "^0.2.1",

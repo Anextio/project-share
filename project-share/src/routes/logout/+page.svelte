@@ -1,4 +1,4 @@
 <script>
-    import { signOut } from '@auth/sveltekit';
-    signOut();
+    /* import { signOut } from '@auth/sveltekit';
+    signOut(); */
   </script>

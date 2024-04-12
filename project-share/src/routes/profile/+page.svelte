@@ -1,79 +1,56 @@
 <script>
-    import { Row, Col, Card, Button } from 'spaper';
-  	import { authStore } from '../../stores/authStore.js';
-	import Auth from '../../components/Auth.svelte';
-  
-    let user = {
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      avatar: '/path/to/avatar.jpg',
-      // Add more user properties as needed
-    };
-  
-    let projects = [
-      // Sample user projects
-      {
-        id: '1',
-        title: 'Project 1',
-        description: 'This is project 1',
-      },
-      {
-        id: '2',
-        title: 'Project 2',
-        description: 'This is project 2',
-      },
-      // Add more user projects as needed
-    ];
-  
-    let discussions = [
-      // Sample user discussions
-      {
-        id: '1',
-        title: 'Discussion 1',
-        description: 'This is discussion 1',
-      },
-      {
-        id: '2',
-        title: 'Discussion 2',
-        description: 'This is discussion 2',
-      },
-      // Add more user discussions as needed
-    ];
-  </script>
-  {#if $authStore}
-  <div class="container">
-    <Row>
-      <Col md="4">
-        <Card>
-          <img src={user.avatar} alt="User Avatar" />
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
-          <p>{user.bio}</p>
-          <Button>Edit Profile</Button>
-        </Card>
-      </Col>
-      <Col md="8">
-        <h2>Projects</h2>
-        {#each projects as project}
-          <Card>
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-            <a href="/projects/{project.id}">View Project</a>
-          </Card>
-        {/each}
-  
-        <h2>Discussions</h2>
-        {#each discussions as discussion}
-          <Card>
-            <h3>{discussion.title}</h3>
-            <p>{discussion.description}</p>
-            <a href="/discussions/{discussion.id}">View Discussion</a>
-          </Card>
-        {/each}
-      </Col>
-    </Row>
-  </div>
-  {:else}
-  <Auth />
-{/if}
+  import { authStore } from '../../stores/authStore';
+  import { getUserProjects } from '$lib/projectsApi';
+  import { getUserDiscussions } from '$lib/discussionsApi';
+  import { Row, Col, Button } from 'spaper';
+  import ProjectCard from '../../components/ProjectCard.svelte';
+  import DiscussionCard from '../../components/DiscussionCard.svelte';
+  import {onMount} from 'svelte';
+
+  let userProjects = [];
+  let userDiscussions = [];
+
+  async function fetchUserData() {
+    userProjects = await getUserProjects($authStore.userId);
+    userDiscussions = await getUserDiscussions($authStore.userId);
+  }
+
+  // Fetch user data when the component is mounted
+  onMount(fetchUserData);
+</script>
+
+<div class="container">
+  <Row>
+    <Col>
+      <h1>Profile</h1>
+    </Col>
+  </Row>
+
+  <Row>
+    <Col>
+      <div class="user-info">
+        <h2>{$authStore.userName}</h2>
+        <p>{$authStore.email}</p>
+        <Button href="/edit-profile">Edit Profile</Button>
+      </div>
+    </Col>
+  </Row>
+
+  <Row>
+    <Col>
+      <h2>Projects</h2>
+      {#each userProjects as project}
+        <ProjectCard {project} />
+      {/each}
+    </Col>
+  </Row>
+
+  <Row>
+    <Col>
+      <h2>Discussions</h2>
+      {#each userDiscussions as discussion}
+        <DiscussionCard {discussion} />
+      {/each}
+    </Col>
+  </Row>
+</div>

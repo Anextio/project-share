@@ -10,7 +10,7 @@
 		name: '',
 		description: '',
 		category: '',
-		tags: '',
+		tags: [],
 		files: []
 	};
 	let collaborators = [];
@@ -18,8 +18,9 @@
 	function handleSubmit() {
 		const project = {
 			...projectData,
-			tags: projectData.tags ? projectData.tags.split(',').map((tag) => tag.trim()) : [],
-			collaborators
+			collaborators,
+			createdAt: new Date(),
+			createdBy: $authStore.userId // Assumes the user ID is stored in the authStore
 		};
 
 		createProject(project)
@@ -32,7 +33,6 @@
 				// Handle error (e.g., show error message)
 			});
 	}
-
 	function handleProjectInput(event) {
 		projectData = event.detail;
 	}
