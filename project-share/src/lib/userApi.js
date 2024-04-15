@@ -7,7 +7,7 @@ export async function createUserProfile(userId, displayName, email) {
     await setDoc(doc(db, 'users', userId), {
       displayName,
       email,
-      // Add any additional profile fields as needed
+      displayNameLower: displayName.toLowerCase(),
     });
   } catch (error) {
     console.error('Error creating user profile:', error);

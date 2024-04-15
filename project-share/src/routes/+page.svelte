@@ -1,5 +1,5 @@
 <script>
-	import ProjectList from '../components/ProjectList.svelte';
+	import FeaturedProjects from '../components/FeaturedProjects.svelte';
 	import CategoryList from '../components/CategoryList.svelte';
 </script>
 
@@ -7,7 +7,7 @@
 	<div class="paper margin-top-large">
 		<h1>Share and Discuss Your Projects</h1>
 		<p>Fostering Collaboration and Knowledge Exchange</p>
-		<ProjectList />
+		<FeaturedProjects />
 		<CategoryList />
 	</div>
 </main>

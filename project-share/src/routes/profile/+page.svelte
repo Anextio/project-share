@@ -11,8 +11,8 @@
   let userDiscussions = [];
 
   async function fetchUserData() {
-    userProjects = await getUserProjects($authStore.userId);
-    userDiscussions = await getUserDiscussions($authStore.userId);
+    userProjects = await getUserProjects($authStore.displayName);
+    userDiscussions = await getUserDiscussions($authStore.displayName);
   }
 
   // Fetch user data when the component is mounted
@@ -29,9 +29,9 @@
   <Row>
     <Col>
       <div class="user-info">
-        <h2>{$authStore.userName}</h2>
+        <h2>{$authStore.displayName}</h2>
         <p>{$authStore.email}</p>
-        <Button href="/edit-profile">Edit Profile</Button>
+        <Button href="/profile/edit">Edit Profile</Button>
       </div>
     </Col>
   </Row>

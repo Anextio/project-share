@@ -10,6 +10,7 @@ import {
 	addDoc,
 	doc,
 	setDoc,
+	updateDoc,
 	increment
 } from 'firebase/firestore';
 
@@ -87,7 +88,8 @@ export async function createProject(project) {
 	const projectRef = await addDoc(collection(db, 'projects'), {
 		...project,
 		createdAt: project.createdAt.toISOString(),
-		createdBy: project.createdBy
+		createdBy: project.createdBy,
+		nameLower: project.name.toLowerCase()
 	});
 
 	// Update the project count for existing tags
@@ -100,6 +102,10 @@ export async function createProject(project) {
 		}
 	}
 
+	const categoryRef = doc(db, 'categories', project.category);
+	await updateDoc(categoryRef, {
+		projectCount: increment(1)
+	});
 	// Return the created project
 	return { id: projectRef.id, ...project };
 }
@@ -124,18 +130,49 @@ async function addNewTag(tag) {
 	await addDoc(collection(db, 'tags'), { name: tag, projectCount: 1 });
 }
 
-export async function getUserProjects(userId) {
-  try {
-    const projectsRef = collection(db, 'projects');
-    const q = query(projectsRef, where('createdBy', '==', userId));
-    const querySnapshot = await getDocs(q);
-    const projects = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-    return projects;
-  } catch (error) {
-    console.error('Error fetching user projects:', error);
-    return [];
-  }
+export async function getUserProjects(displayName) {
+	try {
+		const projectsRef = collection(db, 'projects');
+		const q = query(projectsRef, where('createdBy', '==', displayName));
+		const querySnapshot = await getDocs(q);
+		const projects = querySnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data()
+		}));
+		return projects;
+	} catch (error) {
+		console.error('Error fetching user projects:', error);
+		return [];
+	}
+}
+
+export async function getProjectById(id) {
+	try {
+		const projectsRef = collection(db, 'projects');
+		const q = query(projectsRef, where('id', '==', id));
+		const querySnapshot = await getDocs(q);
+		const projects = querySnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data()
+		}));
+		return projects;
+	} catch (error) {
+		console.error('Error fetching user projects:', error);
+		return [];
+	}
+}
+export async function getProjectsByCategory(category) {
+	try {
+		const projectsRef = collection(db, 'projects');
+		const q = query(projectsRef, where('category', '==', category));
+		const querySnapshot = await getDocs(q);
+		const projects = querySnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data()
+		}));
+		return projects;
+	} catch (error) {
+		console.error('Error fetching user projects:', error);
+		return [];
+	}
 }

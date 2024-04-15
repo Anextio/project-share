@@ -12,7 +12,10 @@ export async function getDiscussions() {
 }
 
 export async function addDiscussion(discussion) {
-	const docRef = await addDoc(discussionsCollection, discussion);
+	const docRef = await addDoc(discussionsCollection, {
+		...discussion,
+		titleLower: discussion.title.toLowerCase()
+	});
 	return docRef.id;
 }
 
@@ -21,10 +24,10 @@ export async function updateDiscussion(discussionId, updatedData) {
 	await setDoc(discussionRef, updatedData, { merge: true });
 }
 
-export async function getUserDiscussions(userId) {
+export async function getUserDiscussions(displayName) {
 	try {
 		const discussionsRef = collection(db, 'discussions');
-		const q = query(discussionsRef, where('startedBy', '==', userId));
+		const q = query(discussionsRef, where('startedBy', '==', displayName));
 		const querySnapshot = await getDocs(q);
 		const discussions = querySnapshot.docs.map((doc) => ({
 			id: doc.id,

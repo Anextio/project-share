@@ -14,15 +14,16 @@
   <Card>
 	<div class="project-header">
 	  <h3>{project.name}</h3>
-	  <Badge>{project.category}</Badge>
+	  <Badge type="success">{project.category}</Badge>
 	</div>
 	<div class="project-body">
 	  <p>{project.description}</p>
 	  <div class="project-tags">
 		{#each project.tags as tag}
-		  <Badge>{tag}</Badge>
+		  <Badge type="success">{tag}</Badge>
 		{/each}
 	  </div>
+	  {#if project.files.length > 0}
 	  <div class="project-files">
 		<p>Files:</p>
 		<ul>
@@ -31,6 +32,7 @@
 		  {/each}
 		</ul>
 	  </div>
+	  {/if}
 	</div>
 	<div class="project-footer">
 	  <Button href="/projects/{project.id}">View Project</Button>

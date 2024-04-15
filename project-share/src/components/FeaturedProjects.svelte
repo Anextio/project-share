@@ -16,7 +16,7 @@
 <Row>
 	{#each projects as project}
 		<Col col="4">
-			<ProjectCard title={project.title} description={project.description} />
+			<ProjectCard project={project} />
 		</Col>
 	{/each}
 </Row>

@@ -1,12 +1,15 @@
 <script>
 	import { Navbar, Input, Button } from 'spaper';
-	import { goto } from '$app/navigation';
+	import { searchAll } from '$lib/searchApi.js';
+  import { goto } from '$app/navigation';
 
 	let searchQuery = '';
-	function handleSearch() {
-		// Perform search logic based on searchQuery
-		console.log('Search query:', searchQuery);
-	}
+	async function handleSearch() {
+    if (searchQuery.trim() !== '') {
+      const searchResults = await searchAll(searchQuery);
+      goto(`/search?results=${JSON.stringify(searchResults)}`);
+    }
+  }
 	function handleCreateProject() {
 		// Logic to handle the creation of a project
 		console.log('Create project clicked');
