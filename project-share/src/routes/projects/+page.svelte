@@ -1,30 +1,50 @@
 <script>
-  import { onMount } from 'svelte';
-  import { Row, Col, Card } from 'spaper';
-  import { getAllProjects } from '$lib/projectsApi'
+  import ProjectCard from '$lib/components/ProjectCard.svelte';
+  import { Row, Col, Card, Alert } from 'spaper';
+  import { getAllProjects } from '$lib/api/projectsApi';
 
   let projects = [];
+  let error = null;
 
   async function loadProjects() {
     try {
       projects = await getAllProjects();
-    } catch (error) {
-      console.error('Error loading projects:', error);
+      console.log(projects);
+    } catch (err) {
+      console.error('Error loading projects:', err);
+      error = 'Failed to load projects. Please try again later.';
     }
   }
 
-  onMount(loadProjects);
+  let projectsLoaded = loadProjects();
 </script>
-<div class="container">
-  <Row>
-    {#each projects as project}
-      <Col md="4">
-        <Card>
-          <h3>{project.title}</h3>
-          <p>{project.description}</p>
-          <a href="/projects/{project.id}">View Project</a>
-        </Card>
-      </Col>
-    {/each}
-  </Row>
-</div>
+
+{#await projectsLoaded}
+  <p>Loading projects...</p>
+{:then}
+  {#if error}
+  <Alert severity="error" class="mt-4">{error}</Alert>
+  {:else}
+    <div>
+      <h2 class="category-heading">Projects</h2>
+      {#if projects.length > 0}
+        <Row>
+          {#each projects as project}
+            <Col md="4">
+              <ProjectCard project={project} />
+            </Col>
+          {/each}
+        </Row>
+      {:else}
+        <p>No projects found.</p>
+      {/if}
+    </div>
+  {/if}
+{/await}
+
+<style>
+  .category-heading {
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+  }
+</style>

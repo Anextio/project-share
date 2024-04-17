@@ -1,9 +1,9 @@
 <script>
 	import '../app.pcss';
 	import 'papercss/dist/paper.min.css';
-	import Header from '../components/Header.svelte';
+	import Header from '$lib/components/Header.svelte';
 	import { onMount } from 'svelte';
-	import { authStore } from '../stores/authStore';
+	import { authStore } from '$lib/stores/authStore';
 
 	onMount(() => {
 		authStore.init();

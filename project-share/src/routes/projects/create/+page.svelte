@@ -1,11 +1,12 @@
 <script>
 	import { Row, Col, Button, Alert } from 'spaper';
-	import ProjectForm from '../../../components/ProjectForm.svelte';
-	import CollaboratorList from '../../../components/CollaboratorList.svelte';
-	import { authStore } from '../../../stores/authStore.js';
-	import Auth from '../../../components/Auth.svelte';
-	import { createProject } from '$lib/projectsApi';
+	import ProjectForm from '$lib/components/ProjectForm.svelte';
+	import CollaboratorList from '$lib/components/CollaboratorList.svelte';
+	import { authStore } from '$lib/stores/authStore.js';
+	import { createProject } from '$lib/api/projectsApi';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { user } from '$lib/auth';
 
 	let projectData = {
 		name: '',
@@ -55,27 +56,30 @@
 	function handleCancel() {
 		history.back();
 	}
+
+	onMount(async () => {
+		const authUser = await user.subscribe((value) => value);
+		if (!authUser) {
+			goto('/login');
+		}
+	});
 </script>
 
-{#if $authStore}
-	<div class="container">
-		{#if errorMessage}
-			<Alert type="danger">
-				{errorMessage}
-			</Alert>
-		{/if}
+<div class="container">
+	{#if errorMessage}
+		<Alert type="danger">
+			{errorMessage}
+		</Alert>
+	{/if}
 
-		<Row>
-			<Col>
-				<h1>Create Project</h1>
-				<p>A platform for students to share and discuss their projects.</p>
-				<ProjectForm bind:projectData on:input={handleProjectInput} />
-				<CollaboratorList on:collaboratorsUpdated={handleCollaboratorsUpdated} />
-				<Button on:click={handleSubmit} disabled={!isFormValid}>Save</Button>
-				<Button on:click={handleCancel}>Cancel</Button>
-			</Col>
-		</Row>
-	</div>
-{:else}
-	<Auth />
-{/if}
+	<Row>
+		<Col>
+			<h1>Create Project</h1>
+			<p>A platform for students to share and discuss their projects.</p>
+			<ProjectForm bind:projectData on:input={handleProjectInput} />
+			<CollaboratorList on:collaboratorsUpdated={handleCollaboratorsUpdated} />
+			<Button on:click={handleSubmit} disabled={!isFormValid}>Save</Button>
+			<Button on:click={handleCancel}>Cancel</Button>
+		</Col>
+	</Row>
+</div>

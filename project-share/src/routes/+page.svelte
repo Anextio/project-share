@@ -1,6 +1,6 @@
 <script>
-	import FeaturedProjects from '../components/FeaturedProjects.svelte';
-	import CategoryList from '../components/CategoryList.svelte';
+	import FeaturedProjects from '$lib/components/FeaturedProjects.svelte';
+	import CategoryList from '$lib/components/CategoryList.svelte';
 </script>
 
 <main class="paper">

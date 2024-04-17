@@ -2,6 +2,8 @@
 	import { Row, Col, Badge } from 'spaper';
 
 	export let project;
+
+	$: console.log(project)
 </script>
 
 <Row>
@@ -13,10 +15,10 @@
 
 <Row>
 	<Col>
-		<h3>Contributors</h3>
+		<h3>Collaborators</h3>
 		<ul>
-			{#each project.contributors as contributor}
-				<li>{contributor}</li>
+			{#each project.collaborators as collaborator}
+				<li>{collaborator}</li>
 			{/each}
 		</ul>
 	</Col>

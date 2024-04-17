@@ -11,7 +11,8 @@ import {
 	doc,
 	setDoc,
 	updateDoc,
-	increment
+	increment,
+	getDoc
 } from 'firebase/firestore';
 
 // Function: Get the 3 most discussed projects in the last 7 days
@@ -45,7 +46,7 @@ export async function getMostDiscussedProjects() {
 			);
 
 			const projectsSnapshot = await getDocs(projectsQuery);
-			projects = projectsSnapshot.docs.map((doc) => doc.data());
+			projects = projectsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 		}
 
 		if (projects.length < 3) {
@@ -57,7 +58,7 @@ export async function getMostDiscussedProjects() {
 			);
 
 			const additionalProjectsSnapshot = await getDocs(additionalProjectsQuery);
-			const additionalProjects = additionalProjectsSnapshot.docs.map((doc) => doc.data());
+			const additionalProjects = additionalProjectsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
 			projects = [...projects, ...additionalProjects];
 		}
@@ -74,7 +75,7 @@ export async function getAllProjects() {
 	try {
 		const projectsRef = collection(db, 'projects');
 		const querySnapshot = await getDocs(projectsRef);
-		const projects = querySnapshot.docs.map((doc) => doc.data());
+		const projects = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
 		return projects;
 	} catch (error) {
@@ -148,19 +149,20 @@ export async function getUserProjects(displayName) {
 
 export async function getProjectById(id) {
 	try {
-		const projectsRef = collection(db, 'projects');
-		const q = query(projectsRef, where('id', '==', id));
-		const querySnapshot = await getDocs(q);
-		const projects = querySnapshot.docs.map((doc) => ({
-			id: doc.id,
-			...doc.data()
-		}));
-		return projects;
+	  const projectRef = doc(db, 'projects', id);
+	  const projectSnapshot = await getDoc(projectRef);
+  
+	  if (projectSnapshot.exists()) {
+		return { id: projectSnapshot.id, ...projectSnapshot.data() };
+	  } else {
+		console.log('Project not found');
+		return null;
+	  }
 	} catch (error) {
-		console.error('Error fetching user projects:', error);
-		return [];
+	  console.error('Error fetching project:', error);
+	  return null;
 	}
-}
+  }
 export async function getProjectsByCategory(category) {
 	try {
 		const projectsRef = collection(db, 'projects');
@@ -176,3 +178,19 @@ export async function getProjectsByCategory(category) {
 		return [];
 	}
 }
+
+export async function getRelatedProjects(tags) {
+	try {
+	  const projectsRef = collection(db, 'projects');
+	  const q = query(projectsRef, where('tags', 'array-contains-any', tags));
+	  const querySnapshot = await getDocs(q);
+	  const projects = querySnapshot.docs.map((doc) => ({
+		id: doc.id,
+		...doc.data(),
+	  }));
+	  return projects;
+	} catch (error) {
+	  console.error('Error fetching related projects:', error);
+	  throw error;
+	}
+  }

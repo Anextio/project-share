@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { getMostDiscussedProjects, getAllProjects, createProject } from '$lib/projectsApi';
+import { getMostDiscussedProjects, getAllProjects, createProject } from '$lib/api/projectsApi';
 
 export async function GET({ url }) {
   const pathname = url.pathname;
