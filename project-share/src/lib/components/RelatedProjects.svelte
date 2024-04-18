@@ -12,7 +12,7 @@
   
 	onMount(async () => {
 	  try {
-		relatedProjects = await getRelatedProjects(tags);
+		relatedProjects = tags.length > 0 ? await getRelatedProjects(tags) : [];
 		loading = false;
 	  } catch (err) {
 		error = 'An error occurred while fetching related projects';
@@ -36,7 +36,7 @@
 			<h3>{project.title}</h3>
 			<p>Created by: {project.createdBy}</p>
 			<p>Date and Time: {project.dateTime}</p>
-			<p>Contributors: {project.contributors.join(', ')}</p>
+			<p>Collaborators: {project.collaborators.join(', ')}</p>
 			<p>{project.description}</p>
 			<Button on:click={() => goto(`/projects/${project.id}`)}>View Project</Button>
 		  </Card>

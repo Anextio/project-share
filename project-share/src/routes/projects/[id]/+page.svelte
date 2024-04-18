@@ -21,13 +21,15 @@
 		<ProjectDetails {project} />
 	  </section>
 	  <section class="discussion-list">
-		<DiscussionList projectId={project.id} />
+		<DiscussionList projectId={$page.params.id} />
 	  </section>
-	  {#if project.tags}
+	  {#await project}
+		<p>Loading Related Projects...</p>
+	  {:then} 
 		<section class="related-projects">
 		  <RelatedProjects tags={project.tags} />
 		</section>
-	  {/if}
+	  {/await}
 	{:else}
 	  <p>Loading project...</p>
 	{/if}

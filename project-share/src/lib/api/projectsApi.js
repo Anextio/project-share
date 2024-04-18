@@ -58,7 +58,10 @@ export async function getMostDiscussedProjects() {
 			);
 
 			const additionalProjectsSnapshot = await getDocs(additionalProjectsQuery);
-			const additionalProjects = additionalProjectsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+			const additionalProjects = additionalProjectsSnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data()
+			}));
 
 			projects = [...projects, ...additionalProjects];
 		}
@@ -149,20 +152,20 @@ export async function getUserProjects(displayName) {
 
 export async function getProjectById(id) {
 	try {
-	  const projectRef = doc(db, 'projects', id);
-	  const projectSnapshot = await getDoc(projectRef);
-  
-	  if (projectSnapshot.exists()) {
-		return { id: projectSnapshot.id, ...projectSnapshot.data() };
-	  } else {
-		console.log('Project not found');
-		return null;
-	  }
+		const projectRef = doc(db, 'projects', id);
+		const projectSnapshot = await getDoc(projectRef);
+
+		if (projectSnapshot.exists()) {
+			return { id: projectSnapshot.id, ...projectSnapshot.data() };
+		} else {
+			console.log('Project not found');
+			return null;
+		}
 	} catch (error) {
-	  console.error('Error fetching project:', error);
-	  return null;
+		console.error('Error fetching project:', error);
+		return null;
 	}
-  }
+}
 export async function getProjectsByCategory(category) {
 	try {
 		const projectsRef = collection(db, 'projects');
@@ -181,16 +184,18 @@ export async function getProjectsByCategory(category) {
 
 export async function getRelatedProjects(tags) {
 	try {
-	  const projectsRef = collection(db, 'projects');
-	  const q = query(projectsRef, where('tags', 'array-contains-any', tags));
-	  const querySnapshot = await getDocs(q);
-	  const projects = querySnapshot.docs.map((doc) => ({
-		id: doc.id,
-		...doc.data(),
-	  }));
-	  return projects;
+		if (tags.length > 0) {
+			const projectsRef = collection(db, 'projects');
+			const q = query(projectsRef, where('tags', 'array-contains-any', tags));
+			const querySnapshot = await getDocs(q);
+			const projects = querySnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data()
+			}));
+			return projects;
+		}
 	} catch (error) {
-	  console.error('Error fetching related projects:', error);
-	  throw error;
+		console.error('Error fetching related projects:', error);
+		throw error;
 	}
-  }
+}

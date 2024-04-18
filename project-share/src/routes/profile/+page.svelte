@@ -1,71 +1,73 @@
 <script>
+  import { onMount } from 'svelte';
   import { authStore } from '$lib/stores/authStore';
   import { getUserProjects } from '$lib/api/projectsApi';
   import { getUserDiscussions } from '$lib/api/discussionsApi';
-  import { Row, Col, Button } from 'spaper';
+  import { Row, Col, Button, Card } from 'spaper';
   import ProjectCard from '$lib/components/ProjectCard.svelte';
   import DiscussionCard from '$lib/components/DiscussionCard.svelte';
-	import { onMount } from 'svelte';
-	import { user } from '$lib/auth';
-	import { goto } from '$app/navigation';
+  import { goto } from '$app/navigation';
 
+  let user = null;
   let userProjects = [];
   let userDiscussions = [];
-  let loadingData = loadUserData();
-
-  async function loadUserData() {
-    console.log("Trying to load data")    
-
-    
-    userProjects = await getUserProjects($authStore.displayName);
-    console.log("Projects were retrieved: ", userProjects);
-    userDiscussions = await getUserDiscussions($authStore.displayName);
-    console.log("Discussions were retrieved: ", userDiscussions);
-  }
+  let loadingData = false;
 
   onMount(async () => {
-    const authUser = await user.subscribe((value) => value);
-    if (!authUser) {
-      goto('/login')
+    user = authStore.getCurrentUser();
+    if (!user) {
+      goto('/login');
+    } else {
+      loadingData = true;
+      try {
+        userProjects = await getUserProjects(user.displayName);
+        userDiscussions = await getUserDiscussions(user.displayName);
+      } catch (error) {
+        console.error('Error loading user data:', error);
+      } finally {
+        loadingData = false;
+      }
     }
-  })
+  });
 </script>
 
-{#await loadingData}
-  <p>Loading user data...</p>
-{:then}
-  <div class="container">
+{#if user}
+  <div>
     <Row>
-      <Col>
+      <Col fill>
+        <Card>
         <h1>Profile</h1>
-      </Col>
-    </Row>
-    <Row>
-      <Col>
         <div class="user-info">
-          <h2>{$authStore.displayName}</h2>
-          <p>{$authStore.email}</p>
+          <label for="displayName">Display Name:</label>
+          <h4 id="displayName" class="mb-4">{user.displayName}</h4>
+          
+          <label for="email">Email:</label>
+          <h4 id="email" class="mb-4">{user.email}</h4>
           <Button href="/profile/edit">Edit Profile</Button>
         </div>
+      </Card>
       </Col>
     </Row>
-    <Row>
-      <Col>
-        <h2>Projects</h2>
-        {#each userProjects as project}
-          <ProjectCard {project} />
-        {/each}
-      </Col>
-    </Row>
-    <Row>
-      <Col>
-        <h2>Discussions</h2>
-        {#each userDiscussions as discussion}
-          <DiscussionCard {discussion} />
-        {/each}
-      </Col>
-    </Row>
+        
+    {#if loadingData}
+      <p>Loading user data...</p>
+    {:else}
+      <Row>
+        <Col fill>
+          <h2>Projects</h2>
+          {#each userProjects as project}
+            <ProjectCard {project} />
+          {/each}
+        </Col>
+      </Row>
+      <Row>
+        <Col fill>
+          <h2>Discussions</h2>
+          {#each userDiscussions as discussion}
+            <DiscussionCard {discussion} />
+          {/each}
+        </Col>
+      </Row>
+    {/if}
   </div>
-{:catch error}
-  <p>Error loading user data. Please try again later.</p>
-{/await}
+{/if}

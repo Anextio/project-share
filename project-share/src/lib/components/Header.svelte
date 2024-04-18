@@ -6,13 +6,10 @@
 	import { onMount } from 'svelte';
   
 	let searchQuery = '';
-	let isLoggedIn = false;
+	let user = null;
   
 	onMount(() => {
-	  const unsubscribe = authStore.subscribe((user) => {
-		isLoggedIn = !!user;
-	  });
-	  return unsubscribe;
+	  user = authStore.getCurrentUser();
 	});
   
 	async function handleSearch() {
@@ -52,7 +49,7 @@
 	  <li><Button on:click={() => goto("/")}>Home</Button></li>
 	  <li><Button on:click={() => goto("/projects")}>Projects</Button></li>
 	  <li><Button on:click={() => goto("/discussions")}>Discussions</Button></li>
-	  {#if isLoggedIn}
+	  {#if user}
 		<li><Button on:click={() => goto("/profile")}>Profile</Button></li>
 		<li><Button size="small" on:click={handleLogout}>Logout</Button></li>
 		<li><Button size="small" on:click={handleCreateProject}>Create Project</Button></li>

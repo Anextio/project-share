@@ -23,11 +23,19 @@
 		loading = false;
 	  }
 	});
+  
+	function handleAddDiscussion() {
+	  goto(`/discussions/create`);
+	}
   </script>
   
   <Row>
 	<Col>
-	  <h2>Discussions</h2>
+	  <div class="discussion-header">
+		<h2>Discussions</h2>
+		<Button on:click={handleAddDiscussion}>Add Discussion</Button>
+	  </div>
+  
 	  {#if loading}
 		<p>Loading discussions...</p>
 	  {:else if error}
@@ -42,24 +50,10 @@
 			<p>Date and Time: {discussion.dateTime}</p>
 			<p>Replies: {discussion.replies}</p>
 			<p>{discussion.description}</p>
-			<Button on:click={() => goto("/discussions/{discussion.id}")}>View Discussion</Button>
+			<Button on:click={() => goto(`/discussions/${discussion.id}`)}>View Discussion</Button>
 		  </Card>
 		{/each}
 	  {/if}
 	</Col>
   </Row>
   
-  <style>
-	.discussion-card {
-	  margin-bottom: 20px;
-	}
-  
-	.discussion-card h3 {
-	  font-size: 18px;
-	  margin-bottom: 10px;
-	}
-  
-	.discussion-card p {
-	  margin-bottom: 5px;
-	}
-  </style>

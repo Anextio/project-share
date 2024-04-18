@@ -3,7 +3,7 @@
 	import { Card, Button, Badge } from 'spaper';
 	export let project = { name: '', description: '', category: '', tags: [], files: [] };
 </script>
-<Card class="project-card">
+<Card class="mb-4">
 	<div class="project-header">
 		<div>
 			<label for="project-name" class="label">Project Name:</label>
