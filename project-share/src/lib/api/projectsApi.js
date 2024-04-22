@@ -1,19 +1,18 @@
 import { db } from '$lib/firebase';
 import {
-	collection,
-	query,
-	where,
-	orderBy,
-	limit,
-	getDocs,
-	serverTimestamp,
-	addDoc,
-	doc,
-	setDoc,
-	updateDoc,
-	increment,
-	getDoc
+  collection,
+  query,
+  where,
+  orderBy,
+  limit,
+  getDocs,
+  addDoc,
+  getDoc,
+  doc,
+  setDoc
 } from 'firebase/firestore';
+import { incrementCategoryProjectCount } from '$lib/api/categoriesApi';
+import { getExistingTag, updateTagProjectCount, addNewTag, incrementTagProjectCount } from '$lib/api/tagsApi';
 
 // Function: Get the 3 most discussed projects in the last 7 days
 export async function getMostDiscussedProjects() {
@@ -90,49 +89,28 @@ export async function getAllProjects() {
 export async function createProject(project) {
 	// Create a new project document in the 'projects' collection
 	const projectRef = await addDoc(collection(db, 'projects'), {
-		...project,
-		createdAt: project.createdAt.toISOString(),
-		createdBy: project.createdBy,
-		nameLower: project.name.toLowerCase()
+	  ...project,
+	  createdAt: project.createdAt.toISOString(),
+	  createdBy: project.createdBy,
+	  nameLower: project.name.toLowerCase()
 	});
-
+  
 	// Update the project count for existing tags
 	for (const tag of project.tags) {
-		const existingTag = await getExistingTag(tag);
-		if (existingTag) {
-			await updateTagProjectCount(existingTag.id);
-		} else {
-			await addNewTag(tag);
-		}
+	  const existingTag = await getExistingTag(tag);
+	  if (existingTag) {
+		await incrementTagProjectCount(existingTag.id);
+	  } else {
+		await addNewTag(tag);
+	  }
 	}
-
-	const categoryRef = doc(db, 'categories', project.category);
-	await updateDoc(categoryRef, {
-		projectCount: increment(1)
-	});
+  
+	// Update the project count for the selected category
+	await incrementCategoryProjectCount(project.category);
+  
 	// Return the created project
 	return { id: projectRef.id, ...project };
-}
-
-async function getExistingTag(tag) {
-	const tagsRef = collection(db, 'tags');
-	const q = query(tagsRef, where('name', '==', tag));
-	const querySnapshot = await getDocs(q);
-	if (!querySnapshot.empty) {
-		const tagDoc = querySnapshot.docs[0];
-		return { id: tagDoc.id, ...tagDoc.data() };
-	}
-	return null;
-}
-
-async function updateTagProjectCount(tagId) {
-	const tagRef = doc(db, 'tags', tagId);
-	await setDoc(tagRef, { projectCount: increment(1) }, { merge: true });
-}
-
-async function addNewTag(tag) {
-	await addDoc(collection(db, 'tags'), { name: tag, projectCount: 1 });
-}
+  }
 
 export async function getUserProjects(displayName) {
 	try {

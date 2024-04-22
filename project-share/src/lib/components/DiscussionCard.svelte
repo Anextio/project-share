@@ -10,7 +10,7 @@
       <h3>{discussion.title}</h3>
       <p>Started by: {discussion.startedBy}</p>
       <p>Date and Time: {discussion.dateTime}</p>
-      <p>Replies: {discussion.replies}</p>
+      <p>Replies: {discussion.replies.length}</p>
     </div>
     <div class="discussion-body">
       <p>{discussion.description}</p>

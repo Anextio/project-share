@@ -2,11 +2,13 @@
 <script>
   import { signOut } from 'firebase/auth';
   import { auth } from '$lib/firebase';
+  import { goto } from '$app/navigation';
 
   async function handleLogout() {
     try {
       await signOut(auth);
       // Redirect to the login page after successful logout
+      goto('/login');
     } catch (error) {
       console.error(error);
     }

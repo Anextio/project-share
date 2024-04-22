@@ -1,0 +1,500 @@
+{
+  ".svelte-kit/generated/server/internal.js": {
+    "file": "internal.js",
+    "name": "internal",
+    "src": ".svelte-kit/generated/server/internal.js",
+    "isEntry": true,
+    "imports": [
+      "_internal.js"
+    ]
+  },
+  "_Badge.js": {
+    "file": "chunks/Badge.js",
+    "name": "Badge",
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_Hero.svelte_svelte_type_style_lang.js"
+    ]
+  },
+  "_Card.js": {
+    "file": "chunks/Card.js",
+    "name": "Card",
+    "imports": [
+      "_utils.js",
+      "_ssr.js"
+    ]
+  },
+  "_CategoryCard.svelte_svelte_type_style_lang.js": {
+    "file": "_app/immutable/assets/CategoryCard.5wNwGYdj.css",
+    "src": "_CategoryCard.svelte_svelte_type_style_lang.js"
+  },
+  "_DiscussionCard.svelte_svelte_type_style_lang.js": {
+    "file": "_app/immutable/assets/DiscussionCard.CE-Svshz.css",
+    "src": "_DiscussionCard.svelte_svelte_type_style_lang.js"
+  },
+  "_Hero.svelte_svelte_type_style_lang.js": {
+    "file": "chunks/Hero.svelte_svelte_type_style_lang.js",
+    "name": "Hero.svelte_svelte_type_style_lang",
+    "imports": [
+      "_utils.js",
+      "_ssr.js"
+    ],
+    "css": [
+      "_app/immutable/assets/Hero.DcJIjjWF.css"
+    ]
+  },
+  "_Input.js": {
+    "file": "chunks/Input.js",
+    "name": "Input",
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_Hero.svelte_svelte_type_style_lang.js"
+    ]
+  },
+  "_ProjectCard.js": {
+    "file": "chunks/ProjectCard.js",
+    "name": "ProjectCard",
+    "imports": [
+      "_ssr.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Badge.js",
+      "_Card.js"
+    ],
+    "css": [
+      "_app/immutable/assets/ProjectCard.DWHumXO2.css"
+    ]
+  },
+  "_ProjectCard.svelte_svelte_type_style_lang.js": {
+    "file": "_app/immutable/assets/ProjectCard.DWHumXO2.css",
+    "src": "_ProjectCard.svelte_svelte_type_style_lang.js"
+  },
+  "_Row.js": {
+    "file": "chunks/Row.js",
+    "name": "Row",
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_Hero.svelte_svelte_type_style_lang.js"
+    ]
+  },
+  "_Select.js": {
+    "file": "chunks/Select.js",
+    "name": "Select",
+    "imports": [
+      "_utils.js",
+      "_ssr.js"
+    ]
+  },
+  "_auth.js": {
+    "file": "chunks/auth.js",
+    "name": "auth",
+    "imports": [
+      "_firebase.js",
+      "_index2.js"
+    ]
+  },
+  "_authStore.js": {
+    "file": "chunks/authStore.js",
+    "name": "authStore",
+    "imports": [
+      "_index2.js",
+      "_firebase.js",
+      "_client.js"
+    ]
+  },
+  "_client.js": {
+    "file": "chunks/client.js",
+    "name": "client",
+    "imports": [
+      "_exports.js"
+    ]
+  },
+  "_discussionsApi.js": {
+    "file": "chunks/discussionsApi.js",
+    "name": "discussionsApi",
+    "imports": [
+      "_firebase.js",
+      "_tagsApi.js"
+    ]
+  },
+  "_exports.js": {
+    "file": "chunks/exports.js",
+    "name": "exports"
+  },
+  "_firebase.js": {
+    "file": "chunks/firebase.js",
+    "name": "firebase"
+  },
+  "_index.js": {
+    "file": "chunks/index.js",
+    "name": "index"
+  },
+  "_index2.js": {
+    "file": "chunks/index2.js",
+    "name": "index",
+    "imports": [
+      "_utils.js"
+    ]
+  },
+  "_internal.js": {
+    "file": "chunks/internal.js",
+    "name": "internal",
+    "imports": [
+      "_ssr.js"
+    ]
+  },
+  "_projectsApi.js": {
+    "file": "chunks/projectsApi.js",
+    "name": "projectsApi",
+    "imports": [
+      "_firebase.js",
+      "_tagsApi.js"
+    ]
+  },
+  "_ssr.js": {
+    "file": "chunks/ssr.js",
+    "name": "ssr",
+    "imports": [
+      "_utils.js"
+    ]
+  },
+  "_stores.js": {
+    "file": "chunks/stores.js",
+    "name": "stores",
+    "imports": [
+      "_ssr.js",
+      "_client.js"
+    ]
+  },
+  "_tagsApi.js": {
+    "file": "chunks/tagsApi.js",
+    "name": "tagsApi",
+    "imports": [
+      "_firebase.js"
+    ]
+  },
+  "_utils.js": {
+    "file": "chunks/utils.js",
+    "name": "utils"
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
+    "file": "entries/fallbacks/error.svelte.js",
+    "name": "entries/fallbacks/error.svelte",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_stores.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
+    "file": "index.js",
+    "name": "index",
+    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
+    "isEntry": true,
+    "imports": [
+      "_internal.js",
+      "_index.js",
+      "_exports.js",
+      "_index2.js"
+    ]
+  },
+  "src/routes/+layout.svelte": {
+    "file": "entries/pages/_layout.svelte.js",
+    "name": "entries/pages/_layout.svelte",
+    "src": "src/routes/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_utils.js",
+      "_Input.js",
+      "_firebase.js",
+      "_client.js",
+      "_authStore.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_layout.CfL57Wwr.css"
+    ]
+  },
+  "src/routes/+page.svelte": {
+    "file": "entries/pages/_page.svelte.js",
+    "name": "entries/pages/_page.svelte",
+    "src": "src/routes/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js",
+      "_utils.js",
+      "_ProjectCard.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Row.js",
+      "_projectsApi.js",
+      "_tagsApi.js",
+      "_client.js",
+      "_Card.js"
+    ],
+    "css": [
+      "_app/immutable/assets/CategoryCard.5wNwGYdj.css"
+    ]
+  },
+  "src/routes/api/discussions/+server.js": {
+    "file": "entries/endpoints/api/discussions/_server.js",
+    "name": "entries/endpoints/api/discussions/_server",
+    "src": "src/routes/api/discussions/+server.js",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_firebase.js"
+    ]
+  },
+  "src/routes/api/projects/+server.js": {
+    "file": "entries/endpoints/api/projects/_server.js",
+    "name": "entries/endpoints/api/projects/_server",
+    "src": "src/routes/api/projects/+server.js",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_projectsApi.js"
+    ]
+  },
+  "src/routes/discussions/+page.svelte": {
+    "file": "entries/pages/discussions/_page.svelte.js",
+    "name": "entries/pages/discussions/_page.svelte",
+    "src": "src/routes/discussions/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Row.js",
+      "_discussionsApi.js",
+      "_Card.js",
+      "_client.js"
+    ],
+    "css": [
+      "_app/immutable/assets/DiscussionCard.CE-Svshz.css",
+      "_app/immutable/assets/CategoryCard.5wNwGYdj.css"
+    ]
+  },
+  "src/routes/discussions/[id]/+page.svelte": {
+    "file": "entries/pages/discussions/_id_/_page.svelte.js",
+    "name": "entries/pages/discussions/_id_/_page.svelte",
+    "src": "src/routes/discussions/[id]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_stores.js",
+      "_discussionsApi.js",
+      "_Hero.svelte_svelte_type_style_lang.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.BTv4k0RG.css"
+    ]
+  },
+  "src/routes/discussions/create/+page.svelte": {
+    "file": "entries/pages/discussions/create/_page.svelte.js",
+    "name": "entries/pages/discussions/create/_page.svelte",
+    "src": "src/routes/discussions/create/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_client.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Badge.js",
+      "_Input.js",
+      "_Select.js",
+      "_Card.js",
+      "_Row.js",
+      "_discussionsApi.js",
+      "_firebase.js",
+      "_tagsApi.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.OS2vhtgr.css"
+    ]
+  },
+  "src/routes/login/+page.svelte": {
+    "file": "entries/pages/login/_page.svelte.js",
+    "name": "entries/pages/login/_page.svelte",
+    "src": "src/routes/login/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_firebase.js",
+      "_client.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_index2.js",
+      "_Input.js",
+      "_Card.js",
+      "_stores.js"
+    ]
+  },
+  "src/routes/logout/+page.svelte": {
+    "file": "entries/pages/logout/_page.svelte.js",
+    "name": "entries/pages/logout/_page.svelte",
+    "src": "src/routes/logout/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js",
+      "_firebase.js",
+      "_client.js"
+    ]
+  },
+  "src/routes/profile/+page.server.js": {
+    "file": "entries/pages/profile/_page.server.js",
+    "name": "entries/pages/profile/_page.server",
+    "src": "src/routes/profile/+page.server.js",
+    "isEntry": true,
+    "imports": [
+      "_authStore.js"
+    ]
+  },
+  "src/routes/profile/+page.svelte": {
+    "file": "entries/pages/profile/_page.svelte.js",
+    "name": "entries/pages/profile/_page.svelte",
+    "src": "src/routes/profile/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js",
+      "_firebase.js",
+      "_client.js",
+      "_tagsApi.js",
+      "_discussionsApi.js",
+      "_Hero.svelte_svelte_type_style_lang.js"
+    ],
+    "css": [
+      "_app/immutable/assets/ProjectCard.DWHumXO2.css",
+      "_app/immutable/assets/DiscussionCard.CE-Svshz.css"
+    ]
+  },
+  "src/routes/profile/edit/+page.svelte": {
+    "file": "entries/pages/profile/edit/_page.svelte.js",
+    "name": "entries/pages/profile/edit/_page.svelte",
+    "src": "src/routes/profile/edit/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_authStore.js",
+      "_firebase.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Input.js",
+      "_Row.js",
+      "_auth.js",
+      "_client.js"
+    ]
+  },
+  "src/routes/projects/+page.svelte": {
+    "file": "entries/pages/projects/_page.svelte.js",
+    "name": "entries/pages/projects/_page.svelte",
+    "src": "src/routes/projects/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_ProjectCard.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Row.js",
+      "_projectsApi.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.3Vlc4Grz.css"
+    ]
+  },
+  "src/routes/projects/[id]/+page.svelte": {
+    "file": "entries/pages/projects/_id_/_page.svelte.js",
+    "name": "entries/pages/projects/_id_/_page.svelte",
+    "src": "src/routes/projects/[id]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_stores.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_client.js",
+      "_firebase.js",
+      "_tagsApi.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.C5YGDgxF.css"
+    ]
+  },
+  "src/routes/projects/category/[category]/+page.svelte": {
+    "file": "entries/pages/projects/category/_category_/_page.svelte.js",
+    "name": "entries/pages/projects/category/_category_/_page.svelte",
+    "src": "src/routes/projects/category/[category]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Row.js",
+      "_firebase.js",
+      "_tagsApi.js",
+      "_ProjectCard.js",
+      "_stores.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.3Vlc4Grz.css"
+    ]
+  },
+  "src/routes/projects/create/+page.svelte": {
+    "file": "entries/pages/projects/create/_page.svelte.js",
+    "name": "entries/pages/projects/create/_page.svelte",
+    "src": "src/routes/projects/create/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Row.js",
+      "_Badge.js",
+      "_Input.js",
+      "_Select.js",
+      "_tagsApi.js",
+      "_authStore.js",
+      "_firebase.js",
+      "_client.js",
+      "_auth.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.DyamInk-.css"
+    ]
+  },
+  "src/routes/reports/+page.svelte": {
+    "file": "entries/pages/reports/_page.svelte.js",
+    "name": "entries/pages/reports/_page.svelte",
+    "src": "src/routes/reports/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_ssr.js",
+      "_firebase.js",
+      "_tagsApi.js",
+      "_discussionsApi.js"
+    ]
+  },
+  "src/routes/search/+page.svelte": {
+    "file": "entries/pages/search/_page.svelte.js",
+    "name": "entries/pages/search/_page.svelte",
+    "src": "src/routes/search/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_utils.js",
+      "_ssr.js",
+      "_stores.js",
+      "_firebase.js",
+      "_Hero.svelte_svelte_type_style_lang.js",
+      "_Card.js",
+      "_Row.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.bClVxNbY.css"
+    ]
+  }
+}

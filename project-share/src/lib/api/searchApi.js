@@ -1,12 +1,13 @@
-// src/lib/searchApi.js
 import { db } from '$lib/firebase.js';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export async function searchAll(searchQuery) {
   try {
-    const usersResults = await searchUsers(searchQuery);
-    const projectsResults = await searchProjects(searchQuery);
-    const discussionsResults = await searchDiscussions(searchQuery);
+    const [usersResults, projectsResults, discussionsResults] = await Promise.all([
+      searchUsers(searchQuery),
+      searchProjects(searchQuery),
+      searchDiscussions(searchQuery),
+    ]);
 
     return {
       users: usersResults,
@@ -26,9 +27,8 @@ async function searchUsers(searchQuery) {
     where('displayNameLower', '>=', searchQuery.toLowerCase()),
     where('displayNameLower', '<=', searchQuery.toLowerCase() + '\uf8ff')
   );
-
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => doc.data());
+  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
 async function searchProjects(searchQuery) {
@@ -38,9 +38,8 @@ async function searchProjects(searchQuery) {
     where('nameLower', '>=', searchQuery.toLowerCase()),
     where('nameLower', '<=', searchQuery.toLowerCase() + '\uf8ff')
   );
-
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => doc.data());
+  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
 async function searchDiscussions(searchQuery) {
@@ -50,7 +49,6 @@ async function searchDiscussions(searchQuery) {
     where('titleLower', '>=', searchQuery.toLowerCase()),
     where('titleLower', '<=', searchQuery.toLowerCase() + '\uf8ff')
   );
-
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => doc.data());
+  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }

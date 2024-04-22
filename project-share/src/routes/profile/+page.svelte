@@ -29,6 +29,10 @@
       }
     }
   });
+
+  function goToReports() {
+    goto('/reports');
+  }
 </script>
 
 {#if user}
@@ -36,19 +40,18 @@
     <Row>
       <Col fill>
         <Card>
-        <h1>Profile</h1>
-        <div class="user-info">
-          <label for="displayName">Display Name:</label>
-          <h4 id="displayName" class="mb-4">{user.displayName}</h4>
-          
-          <label for="email">Email:</label>
-          <h4 id="email" class="mb-4">{user.email}</h4>
-          <Button href="/profile/edit">Edit Profile</Button>
-        </div>
-      </Card>
+          <h1>Profile</h1>
+          <div class="user-info">
+            <label for="displayName">Display Name:</label>
+            <h4 id="displayName" class="mb-4">{user.displayName}</h4>
+            <label for="email">Email:</label>
+            <h4 id="email" class="mb-4">{user.email}</h4>
+            <Button href="/profile/edit">Edit Profile</Button>
+            <Button on:click={goToReports}>Go to Reports</Button>
+          </div>
+        </Card>
       </Col>
     </Row>
-        
     {#if loadingData}
       <p>Loading user data...</p>
     {:else}
