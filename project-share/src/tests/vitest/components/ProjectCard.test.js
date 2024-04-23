@@ -1,4 +1,3 @@
-// ProjectCard.test.js
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/svelte';
 import ProjectCard from '$lib/components/ProjectCard.svelte';
@@ -9,8 +8,7 @@ describe('ProjectCard', () => {
       name: 'Test Project',
       description: 'This is a test project',
       category: 'Test Category',
-      tags: ['tag1', 'tag2'],
-      files: ['file1.txt', 'file2.pdf'],
+      tags: ['tag1', 'tag2']
     };
 
     render(ProjectCard, { props: { project } });
@@ -24,31 +22,16 @@ describe('ProjectCard', () => {
     expect(screen.getByText('file2.pdf')).toBeTruthy();
   });
 
-  it('renders correctly when no files are present', () => {
-    const project = {
-      name: 'Test Project',
-      description: 'This is a test project',
-      category: 'Test Category',
-      tags: ['tag1', 'tag2'],
-      files: [],
-    };
-
-    render(ProjectCard, { props: { project } });
-
-    expect(screen.queryByText('Files:')).toBeNull();
-  });
-
   it('handles empty project data without crashing', () => {
     const emptyProject = {
       name: '',
       description: '',
       category: '',
-      tags: [],
-      files: []
+      tags: []
     };
 
     render(ProjectCard, { props: { emptyProject } });
-    expect(screen.queryByText('No Project Data')).toBeNull(); // Ensure there is handling for completely empty data.
+    expect(screen.queryByText('No Project Data')).toBeNull();
   });
 
   it('renders the view project button with the correct link', () => {
@@ -57,8 +40,7 @@ describe('ProjectCard', () => {
       name: 'Test Project',
       description: 'This is a test project',
       category: 'Test Category',
-      tags: ['tag1', 'tag2'],
-      files: ['file1.txt', 'file2.pdf']
+      tags: ['tag1', 'tag2']
     };
 
     render(ProjectCard, { props: { project } });
@@ -71,11 +53,10 @@ describe('ProjectCard', () => {
       name: 'Test Project',
       description: 'This is a test project',
       category: 'Test Category',
-      tags: [],
-      files: ['file1.txt', 'file2.pdf']
+      tags: []
     };
 
     render(ProjectCard, { props: { project } });
-    expect(screen.queryByText('Tags:')).toBeNull(); // Assuming a 'Tags:' label that only shows if tags exist
+    expect(screen.queryByText('Tags:')).toBeNull();
   });
 });

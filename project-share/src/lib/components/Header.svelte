@@ -18,7 +18,6 @@
 	}
   
 	function handleCreateProject() {
-	  console.log('Create project clicked');
 	  goto('/projects/create');
 	}
   

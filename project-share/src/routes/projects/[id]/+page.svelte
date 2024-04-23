@@ -10,7 +10,6 @@
 	let project = null;
   
 	onMount(async () => {
-		console.log($page.params.id)
 	  project = await getProjectById($page.params.id)
 	});
   </script>
@@ -27,7 +26,7 @@
 		<p>Loading Related Projects...</p>
 	  {:then} 
 		<section class="related-projects">
-		  <RelatedProjects tags={project.tags} />
+		  <RelatedProjects tags={project.tags} currentProjectId={project.id} />
 		</section>
 	  {/await}
 	{:else}

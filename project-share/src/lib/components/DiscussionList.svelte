@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { Row, Col, Card, Button } from 'spaper';
 	import { goto } from '$app/navigation';
+	import { getDiscussionsByProjectId } from '$lib/api/discussionsApi'
   
 	export let projectId;
   
@@ -11,12 +12,7 @@
   
 	onMount(async () => {
 	  try {
-		const response = await fetch(`/api/discussions?projectId=${projectId}`);
-		if (response.ok) {
-		  discussions = await response.json();
-		} else {
-		  error = 'Failed to fetch discussions';
-		}
+		discussions = await getDiscussionsByProjectId(projectId);		
 	  } catch (err) {
 		error = 'An error occurred while fetching discussions';
 	  } finally {

@@ -1,11 +1,9 @@
-// CategoryList.test.js
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/svelte';
 import CategoryList from '$lib/components/CategoryList.svelte';
 import { getCategories } from '$lib/api/categoriesApi';
 import * as navigation from '$app/navigation';
 
-// Setup the mock for categoriesApi
 vi.mock('$lib/api/categoriesApi', () => ({
   getCategories: vi.fn()
 }));
@@ -26,7 +24,7 @@ describe('CategoryList', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Category 1')).toBeTruthy();
-      expect(screen.getByText('5 Projects')).toBeTruthy();
+      expect(screen.getByText('Projects: 5')).toBeTruthy();
     });
   });
 
@@ -47,7 +45,6 @@ describe('CategoryList', () => {
     ];
     getCategories.mockReturnValue(Promise.resolve(mockCategories));
 
-    // Mock the goto function
     const gotoMock = vi.fn();
     vi.spyOn(navigation, 'goto').mockImplementation(gotoMock);
 

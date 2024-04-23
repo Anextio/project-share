@@ -1,4 +1,3 @@
-// src/tests/vitest/components/CollaboratorList.test.js
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/svelte';
 import CollaboratorList from '$lib/components/CollaboratorList.svelte';
@@ -7,8 +6,7 @@ describe('CollaboratorList', () => {
   it('renders the collaborator list', () => {
     render(CollaboratorList);
 
-    expect(screen.getByText('Collaborators')).toBeInTheDocument();
-    // Add more assertions for the rendered elements
+    expect(screen.getByText('Collaborators')).toBeTruthy();
   });
 
   it('adds a new collaborator', async () => {
@@ -21,7 +19,6 @@ describe('CollaboratorList', () => {
     await fireEvent.click(addButton);
 
     expect(screen.getByText('test@example.com')).toBeInTheDocument();
-    // Add more assertions for the added collaborator
   });
 
   it('removes a collaborator', async () => {

@@ -1,7 +1,6 @@
 <script>
     import { Form, Row, Col, Input, Select, Badge, Button } from 'spaper';
     import { createEventDispatcher } from 'svelte';
-    import FileInput from './FileInput.svelte';
     import { getTags } from '$lib/api/tagsApi';
 	import { getCategories } from '$lib/api/categoriesApi';
 
@@ -10,19 +9,13 @@
         description: '',
         category: '',
         tags: [],
-        files: []
     };
 
-    let suggestions = [];  // Array to store tag suggestions for autocomplete
-    let newTag = '';  // Variable to store the input value for a new tag
+    let suggestions = []; 
+    let newTag = '';
     let categoryOptions = [];
 
     const dispatch = createEventDispatcher();
-
-    function handleFilesSelected(event) {
-        projectData.files = event.detail;
-        dispatch('input', { projectData });
-    }
 
     function addTag() {
         if (newTag && !projectData.tags.includes(newTag) && projectData.tags.length < 5) {
@@ -65,9 +58,9 @@
         <Row>
             <Col>
                 <Select label="Project Category" bind:value={projectData.category}>
-                    <option value="">Select Category</option>
+                    <option value="" class="select-option">Select Category</option>
                     {#each categoryOptions as categoryName}
-                        <option value={categoryName}>{categoryName}</option>
+                        <option value={categoryName} class="select-option">{categoryName}</option>
                     {/each}
                 </Select>
             </Col>
@@ -85,7 +78,6 @@
                 </div>
             </Col>
         </Row>
-        <FileInput on:filesSelected={handleFilesSelected} />
     </Form>
 {:catch error}
     <p>Error loading data. Please try again later.</p>
@@ -94,5 +86,9 @@
 <style>
     .tag-wrapper {
         cursor: pointer;
+    }
+    .select-option {
+        background-color: slategray;
+        color: white;
     }
 </style>

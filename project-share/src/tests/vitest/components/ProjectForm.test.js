@@ -1,4 +1,3 @@
-// ProjectForm.test.js
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/svelte';
 import ProjectForm from '$lib/components/ProjectForm.svelte';
@@ -24,8 +23,7 @@ describe('ProjectForm', () => {
             name: 'Test Project',
             description: 'This is a test project',
             category: 'Test Category',
-            tags: ['tag1', 'tag2'],
-            files: [],
+            tags: ['tag1', 'tag2']
         };
 
         getTags.mockResolvedValue([{ name: 'tag1' }, { name: 'tag2' }, { name: 'tag3' }]);
@@ -62,8 +60,7 @@ describe('ProjectForm', () => {
             name: '',
             description: '',
             category: '',
-            tags: ['tag1', 'tag2'],
-            files: [],
+            tags: ['tag1', 'tag2']
         };
 
         getTags.mockResolvedValue([]);
@@ -77,6 +74,4 @@ describe('ProjectForm', () => {
             fireEvent.click(tag1);
         });
     });
-
-    // Add more test cases as needed
 });

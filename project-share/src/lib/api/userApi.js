@@ -1,4 +1,3 @@
-// src/lib/userApi.js
 import { db } from '$lib/firebase.js';
 import { doc, setDoc } from 'firebase/firestore';
 

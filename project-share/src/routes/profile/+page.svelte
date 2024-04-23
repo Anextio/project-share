@@ -11,7 +11,16 @@
   let user = null;
   let userProjects = [];
   let userDiscussions = [];
+<<<<<<< Updated upstream
   let loadingData = false;
+=======
+  let loadingData = loadUserData();
+
+  async function loadUserData() {   
+    userProjects = await getUserProjects($authStore.displayName);
+    userDiscussions = await getUserDiscussions($authStore.displayName);
+  }
+>>>>>>> Stashed changes
 
   onMount(async () => {
     user = authStore.getCurrentUser();
@@ -35,6 +44,7 @@
   }
 </script>
 
+<<<<<<< Updated upstream
 {#if user}
   <div>
     <Row>
@@ -50,6 +60,40 @@
             <Button on:click={goToReports}>Go to Reports</Button>
           </div>
         </Card>
+=======
+{#await loadingData}
+  <p>Loading user data...</p>
+{:then}
+  <div >
+    <Row>
+      <Col fill>
+        <h1>Profile</h1>
+      </Col>
+    </Row>
+    <Row>
+      <Col fill>
+        <div class="user-info">
+          <h2>{$authStore.displayName}</h2>
+          <p>{$authStore.email}</p>
+          <Button href="/profile/edit">Edit Profile</Button>
+        </div>
+      </Col>
+    </Row>
+    <Row>
+      <Col fill>
+        <h2>Projects</h2>
+        {#each userProjects as project}
+          <ProjectCard {project} />
+        {/each}
+      </Col>
+    </Row>
+    <Row>
+      <Col fill>
+        <h2>Discussions</h2>
+        {#each userDiscussions as discussion}
+          <DiscussionCard {discussion} />
+        {/each}
+>>>>>>> Stashed changes
       </Col>
     </Row>
     {#if loadingData}

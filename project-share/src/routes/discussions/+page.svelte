@@ -22,6 +22,7 @@
 
 {#await loadingData}
 	<p>Loading data...</p>
+<<<<<<< Updated upstream
 {:then}
 	<div>
 		<Row>
@@ -32,6 +33,18 @@
 				{/each}
 			</Col>
 		</Row>
+=======
+  {:then}
+	<div >
+	  <Row>
+		<Col fill>
+		  <h2>Discussion Threads</h2>
+		  {#each discussions as discussion}
+			<DiscussionCard {discussion} />
+		  {/each}
+		</Col>		
+	  </Row>
+>>>>>>> Stashed changes
 	</div>
 {:catch error}
 	<Alert type="danger">Error loading data. Please try again later.</Alert>

@@ -5,7 +5,7 @@
     export let discussion;
   </script>
   
-  <Card>
+  <Card class="mb-2">
     <div class="discussion-header">
       <h3>{discussion.title}</h3>
       <p>Started by: {discussion.startedBy}</p>

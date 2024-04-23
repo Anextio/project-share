@@ -1,9 +1,13 @@
 <!-- ProjectCard.svelte -->
 <script>
 	import { Card, Button, Badge } from 'spaper';
-	export let project = { name: '', description: '', category: '', tags: [], files: [] };
+	export let project = { name: '', description: '', category: '', tags: [] };
 </script>
+<<<<<<< Updated upstream
 <Card class="mb-4">
+=======
+<Card class="mb-2">
+>>>>>>> Stashed changes
 	<div class="project-header">
 		<div>
 			<label for="project-name" class="label">Project Name:</label>
@@ -26,17 +30,7 @@
 					<Badge type="success">{tag}</Badge>
 				{/each}
 			</div>
-		</div>
-		{#if project.files.length > 0}
-			<div class="project-files">
-				<label for="project-files" class="label">Files:</label>
-				<ul id="project-files">
-					{#each project.files as file}
-						<li>{file}</li>
-					{/each}
-				</ul>
-			</div>
-		{/if}
+		</div>		
 	</div>
 	<div class="project-footer"><Button href="/projects/{project.id}">View Project</Button></div>
 </Card>
@@ -67,13 +61,6 @@
 	}
 	.project-tags :global(.badge) {
 		margin-right: 0.5rem;
-	}
-	.project-files {
-		margin-top: 1rem;
-	}
-	.project-files ul {
-		margin: 0;
-		padding-left: 1.5rem;
 	}
 	.project-footer {
 		text-align: right;

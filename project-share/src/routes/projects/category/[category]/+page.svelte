@@ -11,7 +11,6 @@
   async function loadProjects(category) {
     try {
       projects = await getProjectsByCategory(category);
-      console.log(projects);
     } catch (error) {
       console.error('Error loading projects:', error);
     }

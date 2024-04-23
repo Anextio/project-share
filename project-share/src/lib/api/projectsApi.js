@@ -9,7 +9,13 @@ import {
   addDoc,
   getDoc,
   doc,
+<<<<<<< Updated upstream
   setDoc
+=======
+  setDoc,
+  updateDoc,
+  increment
+>>>>>>> Stashed changes
 } from 'firebase/firestore';
 import { incrementCategoryProjectCount } from '$lib/api/categoriesApi';
 import { getExistingTag, updateTagProjectCount, addNewTag, incrementTagProjectCount } from '$lib/api/tagsApi';
@@ -87,15 +93,18 @@ export async function getAllProjects() {
 }
 
 export async function createProject(project) {
-	// Create a new project document in the 'projects' collection
 	const projectRef = await addDoc(collection(db, 'projects'), {
 	  ...project,
 	  createdAt: project.createdAt.toISOString(),
 	  createdBy: project.createdBy,
 	  nameLower: project.name.toLowerCase()
 	});
+<<<<<<< Updated upstream
   
 	// Update the project count for existing tags
+=======
+
+>>>>>>> Stashed changes
 	for (const tag of project.tags) {
 	  const existingTag = await getExistingTag(tag);
 	  if (existingTag) {
@@ -104,6 +113,7 @@ export async function createProject(project) {
 		await addNewTag(tag);
 	  }
 	}
+<<<<<<< Updated upstream
   
 	// Update the project count for the selected category
 	await incrementCategoryProjectCount(project.category);
@@ -112,6 +122,27 @@ export async function createProject(project) {
 	return { id: projectRef.id, ...project };
   }
 
+=======
+
+	const categoriesRef = collection(db, 'categories');
+const categoryQuery = query(categoriesRef, where('name', '==', project.category));
+const categorySnapshot = await getDocs(categoryQuery);
+
+if (categorySnapshot.empty) {
+  await addDoc(categoriesRef, {
+    name: project.category,
+    description: '',
+    projectCount: 1,
+  });
+} else {
+  const categoryDoc = categorySnapshot.docs[0];
+  await updateDoc(categoryDoc.ref, {
+    projectCount: increment(1),
+  });
+}
+return { id: projectRef.id, ...project };
+}
+>>>>>>> Stashed changes
 export async function getUserProjects(displayName) {
 	try {
 		const projectsRef = collection(db, 'projects');
@@ -176,4 +207,8 @@ export async function getRelatedProjects(tags) {
 		console.error('Error fetching related projects:', error);
 		throw error;
 	}
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

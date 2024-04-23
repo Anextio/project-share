@@ -132,4 +132,26 @@ export async function updateReply(replyId, updatedReply) {
     const updatedReplies = updateReplyInDiscussion(discussion.replies, replyId, updatedReply);
     await updateDoc(doc.ref, { replies: updatedReplies });
   });
+<<<<<<< Updated upstream
 }
+=======
+}
+
+export async function getDiscussionsByProjectId(projectId) {
+	try {
+	  const discussionsRef = collection(db, 'discussions');
+	  const q = query(discussionsRef, where('projectId', '==', projectId));
+	  const querySnapshot = await getDocs(q);
+  
+	  const discussions = [];
+	  querySnapshot.forEach((doc) => {
+		discussions.push({ id: doc.id, ...doc.data() });
+	  });
+  
+	  return discussions;
+	} catch (error) {
+	  console.error('Error fetching discussions by project ID:', error);
+	  throw error;
+	}
+  }
+>>>>>>> Stashed changes

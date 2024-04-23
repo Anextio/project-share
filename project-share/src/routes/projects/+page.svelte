@@ -9,7 +9,6 @@
   async function loadProjects() {
     try {
       projects = await getAllProjects();
-      console.log(projects);
     } catch (err) {
       console.error('Error loading projects:', err);
       error = 'Failed to load projects. Please try again later.';

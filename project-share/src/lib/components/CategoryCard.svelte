@@ -12,8 +12,8 @@
 <Card>
 	<div class="category-content" on:click={() => viewProjects(category.name)}>
 		<h3>{category.name}</h3>
-		<p>Projects: {category.projectCount}</p>
-		<p>Discussions: {category.discussionCount}</p>
+		<p>Projects: {category.projectCount ? category.projectCount : 0}</p>
+		<p>Discussions: {category.discussionCount ? category.discussionCount : 0}</p>
 	</div>
 </Card>
 
