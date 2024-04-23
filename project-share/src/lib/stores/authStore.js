@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-// src/stores/authStore.js
-
-=======
->>>>>>> Stashed changes
 import { writable } from 'svelte/store';
 import { auth } from '$lib/firebase.js';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
@@ -22,18 +17,6 @@ const createAuthStore = () => {
   return {
     subscribe,
     init: () => {
-<<<<<<< Updated upstream
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          // Wait for the user's profile to be fully loaded
-          await user.reload();
-          set(user);
-          localStorage.setItem('user', JSON.stringify(user));
-          goto(window.location.pathname);
-        } else {
-          set(null);
-          localStorage.removeItem('user');
-=======
       onAuthStateChanged(auth, (user) => {
         if (user) {
           set({
@@ -44,7 +27,6 @@ const createAuthStore = () => {
           goto(window.location.pathname);
         } else {
           set(null);
->>>>>>> Stashed changes
         }
       });
     },

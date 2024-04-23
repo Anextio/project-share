@@ -13,30 +13,6 @@
   
   <Row>
 	<Col>
-<<<<<<< Updated upstream
-		<h3>Collaborators</h3>
-		{#if project.collaborators.length > 0}
-		<ul>
-			{#each project.collaborators as collaborator}
-				<li>{collaborator}</li>
-			{/each}
-		</ul>
-		{:else}
-		<p>No collaborators.</p>
-		{/if}
-	</Col>
-    </Row>
-    <Row>
-	<Col>
-		<h3>Tags</h3>
-		{#if project.tags.length > 0}
-		{#each project.tags as tag}
-			<Badge type="success">{tag}</Badge>
-		{/each}
-		{:else}
-		<p>No tags.</p>
-		{/if}
-=======
 	  <h3>Collaborators</h3>
 	  <Row>
 		{#each project.collaborators as collaborator}
@@ -51,7 +27,6 @@
 		  </Col>
 		{/each}
 	  </Row>
->>>>>>> Stashed changes
 	</Col>
   </Row>
   

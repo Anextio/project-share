@@ -132,9 +132,6 @@ export async function updateReply(replyId, updatedReply) {
     const updatedReplies = updateReplyInDiscussion(discussion.replies, replyId, updatedReply);
     await updateDoc(doc.ref, { replies: updatedReplies });
   });
-<<<<<<< Updated upstream
-}
-=======
 }
 
 export async function getDiscussionsByProjectId(projectId) {
@@ -154,4 +151,3 @@ export async function getDiscussionsByProjectId(projectId) {
 	  throw error;
 	}
   }
->>>>>>> Stashed changes

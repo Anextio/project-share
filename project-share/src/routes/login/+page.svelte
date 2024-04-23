@@ -42,23 +42,6 @@
 	}
 
 	async function signInWithGoogle() {
-<<<<<<< Updated upstream
-		const provider = new GoogleAuthProvider();
-		try {
-			loading = true;
-			storeRedirectTo();
-			const result = await signInWithPopup(auth, provider);
-			const user = result.user;
-			await createUserProfile(user.uid, user.displayName, user.email);
-			console.log('Signed in with Google:', user);
-			goto(redirectTo);
-		} catch (err) {
-			error = getErrorMessage(err.code);
-			console.error('Error signing in with Google:', err);
-		} finally {
-			loading = false;
-		}
-=======
 	  const provider = new GoogleAuthProvider();
 	  try {
 		loading = true;
@@ -73,7 +56,6 @@
 	  } finally {
 		loading = false;
 	  }
->>>>>>> Stashed changes
 	}
 
 	async function signInWithEmail() {

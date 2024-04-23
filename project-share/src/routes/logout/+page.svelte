@@ -5,12 +5,8 @@
 
   async function handleLogout() {
     try {
-      await signOut(auth);
-<<<<<<< Updated upstream
-      // Redirect to the login page after successful logout
+      await signOut(auth);      
       goto('/login');
-=======
->>>>>>> Stashed changes
     } catch (error) {
       console.error(error);
     }

@@ -3,11 +3,7 @@
 	import { Card, Button, Badge } from 'spaper';
 	export let project = { name: '', description: '', category: '', tags: [] };
 </script>
-<<<<<<< Updated upstream
 <Card class="mb-4">
-=======
-<Card class="mb-2">
->>>>>>> Stashed changes
 	<div class="project-header">
 		<div>
 			<label for="project-name" class="label">Project Name:</label>

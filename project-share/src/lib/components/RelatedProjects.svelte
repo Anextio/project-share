@@ -13,11 +13,7 @@
   
 	onMount(async () => {
 	  try {
-<<<<<<< Updated upstream
 		relatedProjects = tags.length > 0 ? await getRelatedProjects(tags) : [];
-=======
-		relatedProjects = await getRelatedProjects(tags, currentProjectId);
->>>>>>> Stashed changes
 		loading = false;
 	  } catch (err) {
 		error = 'An error occurred while fetching related projects';
@@ -41,11 +37,7 @@
 			<h3>{project.title}</h3>
 			<p>Created by: {project.createdBy}</p>
 			<p>Date and Time: {project.dateTime}</p>
-<<<<<<< Updated upstream
 			<p>Collaborators: {project.collaborators.join(', ')}</p>
-=======
-			<p>Contributors: {project.contributors ? project.contributors.join(', ') : 'N/A'}</p>
->>>>>>> Stashed changes
 			<p>{project.description}</p>
 			<Button on:click={() => goto(`/projects/${project.id}`)}>View Project</Button>
 		  </Card>
