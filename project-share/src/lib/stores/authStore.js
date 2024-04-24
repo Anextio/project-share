@@ -19,14 +19,17 @@ const createAuthStore = () => {
     init: () => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          set({
+          const userData = {
             userId: user.uid,
             displayName: user.displayName,
             email: user.email
-          });
+          };
+          set(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
           goto(window.location.pathname);
         } else {
           set(null);
+          localStorage.removeItem('user');
         }
       });
     },
@@ -37,11 +40,13 @@ const createAuthStore = () => {
     updateProfile: (displayName, email) => {
       update((currentUser) => {
         if (currentUser) {
-          return {
+          const updatedUser = {
             ...currentUser,
             displayName: displayName,
             email: email
           };
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+          return updatedUser;
         }
         return currentUser;
       });

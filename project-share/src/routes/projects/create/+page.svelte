@@ -18,7 +18,10 @@
 	let isFormValid = false;
 	let errorMessage = '';
   
-	function handleSubmit() {
+	function handleSubmit(event) {
+	  isFormValid = event.detail.isValid;
+	  projectData = event.detail.projectData;
+  
 	  if (!isFormValid) {
 		errorMessage = 'Please fill in all required fields correctly.';
 		return;
@@ -39,11 +42,6 @@
 		  console.error('Error creating project:', error);
 		  errorMessage = 'An error occurred while creating the project. Please try again.';
 		});
-	}
-  
-	function handleProjectInput(event) {
-	  projectData = event.detail.projectData;
-	  isFormValid = event.detail.isValid;
 	}
   
 	function handleCollaboratorsUpdated(event) {
@@ -72,9 +70,8 @@
 	  <Col fill>
 		<h1>Create Project</h1>
 		<p>A platform for students to share and discuss their projects.</p>
-		<ProjectForm bind:projectData on:input={handleProjectInput} />
+		<ProjectForm projectData={projectData} on:submit={handleSubmit} />
 		<CollaboratorList on:collaboratorsUpdated={handleCollaboratorsUpdated} />
-		<Button on:click={handleSubmit} disabled={!isFormValid}>Save</Button>
 		<Button on:click={handleCancel}>Cancel</Button>
 	  </Col>
 	</Row>

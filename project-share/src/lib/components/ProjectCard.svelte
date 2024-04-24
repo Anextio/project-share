@@ -1,8 +1,24 @@
-<!-- ProjectCard.svelte -->
 <script>
 	import { Card, Button, Badge } from 'spaper';
+	import { authStore } from '$lib/stores/authStore';
+	import { deleteProject } from '$lib/api/projectsApi';
+	import { goto } from '$app/navigation';
+  
 	export let project = { name: '', description: '', category: '', tags: [] };
-</script>
+  
+	let user = null;
+  
+	authStore.subscribe(value => {
+	  user = value;
+	});
+  
+	async function handleDeleteProject() {
+	  if (confirm('Are you sure you want to delete this project?')) {
+		await deleteProject(project.id).then(() => goto('/profile'));
+		
+	  }
+	}
+  </script>
 <Card class="mb-4">
 	<div class="project-header">
 		<div>
@@ -28,7 +44,12 @@
 			</div>
 		</div>		
 	</div>
-	<div class="project-footer"><Button href="/projects/{project.id}">View Project</Button></div>
+	<div class="project-footer">
+		<Button href="/projects/{project.id}">View Project</Button>
+		{#if user && user.displayName === project.createdBy}
+		  <Button color="danger" on:click={handleDeleteProject}>Delete Project</Button>
+		{/if}
+	  </div>
 </Card>
 
 <style>	

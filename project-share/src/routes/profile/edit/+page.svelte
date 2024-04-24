@@ -17,6 +17,7 @@
 		  const userRef = doc(db, 'users', userId);
 		  await updateDoc(userRef, {
 			displayName: displayName,
+			displayNameLower: displayName.toLowerCase(),
 			email: email
 		  });
 		  authStore.updateProfile(displayName, email);

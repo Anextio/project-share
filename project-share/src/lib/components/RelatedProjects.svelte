@@ -3,6 +3,7 @@
 	import { Row, Col, Card, Button } from 'spaper';
 	import { goto } from '$app/navigation';
 	import { getRelatedProjects } from '$lib/api/projectsApi';
+	import ProjectCard from './ProjectCard.svelte';
   
 	export let tags = [];
 	export let currentProjectId = "";
@@ -13,7 +14,7 @@
   
 	onMount(async () => {
 	  try {
-		relatedProjects = tags.length > 0 ? await getRelatedProjects(tags) : [];
+		relatedProjects = tags.length > 0 ? await getRelatedProjects(tags, currentProjectId) : [];
 		loading = false;
 	  } catch (err) {
 		error = 'An error occurred while fetching related projects';
@@ -33,14 +34,7 @@
 		<p>No related projects found.</p>
 	  {:else}
 		{#each relatedProjects as project}
-		  <Card>
-			<h3>{project.title}</h3>
-			<p>Created by: {project.createdBy}</p>
-			<p>Date and Time: {project.dateTime}</p>
-			<p>Collaborators: {project.collaborators.join(', ')}</p>
-			<p>{project.description}</p>
-			<Button on:click={() => goto(`/projects/${project.id}`)}>View Project</Button>
-		  </Card>
+		  <ProjectCard project={project} />
 		{/each}
 	  {/if}
 	</Col>

@@ -11,22 +11,18 @@
   let user = null;
   let userProjects = [];
   let userDiscussions = [];
-  let loadingData = false;
 
   onMount(async () => {
-    user = authStore.getCurrentUser();
-    if (!user) {
-      goto('/login');
-    } else {
-      loadingData = true;
-      try {
+    try {
+      user = await authStore.getCurrentUser();
+      if (user) {
         userProjects = await getUserProjects(user.displayName);
         userDiscussions = await getUserDiscussions(user.displayName);
-      } catch (error) {
-        console.error('Error loading user data:', error);
-      } finally {
-        loadingData = false;
+      } else {
+        goto('/login');
       }
+    } catch (error) {
+      console.error('Error loading profile data:', error);
     }
   });
 
@@ -35,26 +31,27 @@
   }
 </script>
 
-{#if user}
-  <div>
-    <Row>
-      <Col fill>
-        <Card>
-          <h1>Profile</h1>
-          <div class="user-info">
-            <label for="displayName">Display Name:</label>
-            <h4 id="displayName" class="mb-4">{user.displayName}</h4>
-            <label for="email">Email:</label>
-            <h4 id="email" class="mb-4">{user.email}</h4>
-            <Button href="/profile/edit">Edit Profile</Button>
-            <Button on:click={goToReports}>Go to Reports</Button>
-          </div>
-        </Card>
-      </Col>
-    </Row>
-    {#if loadingData}
-      <p>Loading user data...</p>
-    {:else}
+{#await authStore.getCurrentUser()}
+  <p>Loading profile...</p>
+{:then user}
+  {#if user}
+    <div>
+      <Row>
+        <Col fill>
+          <Card>
+            <h1>Profile</h1>
+            <div class="user-info">
+              <label for="displayName">Display Name:</label>
+              <h4 id="displayName" class="mb-4">{user.displayName}</h4>
+              <label for="email">Email:</label>
+              <h4 id="email" class="mb-4">{user.email}</h4>
+              <Button href="/profile/edit">Edit Profile</Button>
+              <Button on:click={goToReports}>Go to Reports</Button>
+            </div>
+          </Card>
+        </Col>
+      </Row>
+
       <Row>
         <Col fill>
           <h2>Projects</h2>
@@ -63,6 +60,7 @@
           {/each}
         </Col>
       </Row>
+
       <Row>
         <Col fill>
           <h2>Discussions</h2>
@@ -71,6 +69,10 @@
           {/each}
         </Col>
       </Row>
-    {/if}
-  </div>
-{/if}
+    </div>
+  {:else}
+    <p>User not found. Please log in.</p>
+  {/if}
+{:catch error}
+  <p>Error loading profile: {error.message}</p>
+{/await}
