@@ -1,6 +1,5 @@
 <script>
 	import { Navbar, Input, Button } from 'spaper';
-	import { searchAll } from '$lib/api/searchApi.js';
 	import { goto } from '$app/navigation';
 	import { authStore } from '$lib/stores/authStore';
   
@@ -25,8 +24,7 @@
 	  goto('/login');
 	}
   
-	function handleLogout() {
-	  authStore.signOut();
+	function handleLogout() {	  
 	  goto('/logout');
 	}
   </script>

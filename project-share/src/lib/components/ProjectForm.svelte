@@ -94,7 +94,7 @@
       </Row>
       <Row>
         <Col>
-          <CollaboratorList on:collaboratorsUpdated={handleCollaboratorsUpdated} />
+          <CollaboratorList on:collaboratorsUpdated={handleCollaboratorsUpdated} collaborators={projectData.collaborators} />
         </Col>
       </Row>
       <Row>

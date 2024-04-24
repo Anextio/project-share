@@ -2,9 +2,11 @@
   import { signOut } from 'firebase/auth';
   import { auth } from '$lib/firebase';
   import { goto } from '$app/navigation';
+	import { authStore } from '$lib/stores/authStore';
 
   async function handleLogout() {
     try {
+      authStore.signOut();
       await signOut(auth);      
       goto('/login');
     } catch (error) {

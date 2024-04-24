@@ -2,7 +2,7 @@
 	import { Button, Input, Select, Card, Row, Col } from 'spaper';
 	import { createEventDispatcher } from 'svelte';
   
-	let collaborators = [];
+	export let collaborators = [];
 	let newCollaborator = { name: '', email: '', role: '' };
 	let editIndex = -1;
   

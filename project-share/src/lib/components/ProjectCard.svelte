@@ -2,7 +2,6 @@
 	import { Card, Button, Badge } from 'spaper';
 	import { authStore } from '$lib/stores/authStore';
 	import { deleteProject } from '$lib/api/projectsApi';
-	import { goto } from '$app/navigation';
   
 	export let project = { name: '', description: '', category: '', tags: [] };
   
