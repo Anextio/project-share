@@ -1,3 +1,4 @@
+<!-- ProjectDetails.svelte -->
 <script>
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
@@ -22,27 +23,23 @@
 	}
   
 	async function saveChanges(event) {
-	  const updatedProject = event.detail.projectData;
+	  let updatedProject = event.detail.projectData;
+	  updatedProject.nameLower = updatedProject.name.toLowerCase();
 	  await updateProject(project.id, updatedProject);
 	  project = { ...project, ...updatedProject };
 	  isEditing = false;
 	}
   </script>
   
-  {#await getProjectById($page.params.id)}
-	<p>Loading project...</p>
-  {:then project}
-	<div>
-	  <section class="project-details">
+  <div>
+	{#if project}
+	  <section>
 		{#if isEditing}
-		  <!-- Display edit form using ProjectForm component -->
 		  <ProjectForm projectData={project} on:submit={saveChanges} />
-		  <button type="button" on:click={() => isEditing = false}>Cancel</button>
 		{:else}
-		  <!-- Display project details -->
 		  <ProjectDetails {project} />
 		  {#if user && user.displayName === project.createdBy}
-			<button on:click={startEditing}>Edit Project</button>
+			<button on:click={startEditing} class="edit-btn">Edit Project</button>
 		  {/if}
 		{/if}
 	  </section>
@@ -51,10 +48,24 @@
 		<DiscussionList projectId={$page.params.id} />
 	  </section>
   
-	  <section class="related-projects">
-		<RelatedProjects tags={project.tags} currentProjectId={project.id} />
-	  </section>
-	</div>
-  {:catch error}
-	<p>Error loading project: {error.message}</p>
-  {/await}
+	  {#await project}
+		<p>Loading Related Projects...</p>
+	  {:then}
+		<section class="related-projects">
+		  <RelatedProjects tags={project.tags} currentProjectId={project.id} />
+		</section>
+	  {/await}
+	{:else}
+	  <p>Loading project...</p>
+	{/if}
+  </div>
+  
+  <style>
+	section {
+	  margin-bottom: 4rem;
+	  margin-left: 4rem;
+	}
+	.edit-btn {
+	 margin-left: 1rem;
+	}
+  </style>

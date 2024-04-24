@@ -2,9 +2,9 @@
   import { goto } from '$app/navigation';
   import { Row, Col, Card, Button, Input, Badge, Select } from 'spaper';
   import { addDiscussion } from '$lib/api/discussionsApi';
-  import { authStore } from '$lib/stores/authStore';
   import { getTags } from '$lib/api/tagsApi';
   import { getCategories } from '$lib/api/categoriesApi';
+  import { onMount } from 'svelte';
 
   let title = '';
   let description = '';
@@ -14,6 +14,7 @@
   let error = null;
   let suggestions = [];
   let categoryOptions = [];
+  let user = null;
 
   async function loadData() {
     const [fetchedTags, fetchedCategories] = await Promise.all([getTags(), getCategories()]);
@@ -38,8 +39,13 @@
       return;
     }
 
+    if (!user) {
+      error = 'You must be logged in to create a discussion';
+      goto('/login');
+      return;
+    }
+
     try {
-      const user = authStore.getCurrentUser();
       const discussion = {
         title,
         description,
@@ -49,7 +55,6 @@
         dateTime: new Date().toISOString(),
         replies: 0
       };
-
       const discussionId = await addDiscussion(discussion);
       if (discussionId) {
         goto('/discussions');
@@ -60,6 +65,16 @@
       error = 'An error occurred while creating the discussion';
     }
   }
+
+  onMount(() => {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      user = JSON.parse(userString);
+    } else {
+      // Redirect to login page if user is not logged in
+      goto('/login');
+    }
+  });
 
   let loadingData = loadData();
 </script>
@@ -118,17 +133,14 @@
     color: red;
     margin-bottom: 10px;
   }
-
   .form-group {
     margin-bottom: 2rem;
     width: 50%;
   }
-
   label {
     display: block;
     margin-bottom: 5px;
   }
-
   .tag-wrapper {
     cursor: pointer;
   }

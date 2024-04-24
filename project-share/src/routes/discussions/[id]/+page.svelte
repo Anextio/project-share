@@ -9,22 +9,32 @@
 	} from '$lib/api/discussionsApi';
 	import { Row, Col, Card, Button, Input } from 'spaper';
 	import ReplyCard from '$lib/components/ReplyCard.svelte';
+	import { authStore } from '$lib/stores/authStore';
+
 	let discussion = null;
 	let newReply = '';
 	let user = null;
 	let editingDiscussion = false;
 	let editedTitle = '';
 	let editedDescription = '';
+
 	onMount(async () => {
 		const discussionId = $page.params.id;
 		console.log($page.params.id);
 		discussion = await getDiscussionById(discussionId);
 		console.log(discussion);
-		const userString = localStorage.getItem('user');
-		if (userString) {
-			user = JSON.parse(userString);
+
+		// Get the user's display name from the authStore
+		const authUser = await authStore.getCurrentUser();
+		if (authUser) {
+			user = {
+				displayName: authUser.displayName
+			};
+		} else {
+			user = localStorage.getItem("user");
 		}
 	});
+
 	async function handleAddReply(parentReplyId = null) {
 		if (newReply.trim() !== '') {
 			const reply = {
@@ -43,6 +53,7 @@
 			newReply = '';
 		}
 	}
+
 	function updateReplyInDiscussion(replyId, updatedReply) {
 		function traverse(replies) {
 			for (let i = 0; i < replies.length; i++) {
@@ -58,15 +69,18 @@
 		traverse(discussion.replies);
 		discussion = { ...discussion };
 	}
+
 	function handleReplyUpdated(event) {
 		const { replyId, updatedReply } = event.detail;
 		updateReplyInDiscussion(replyId, updatedReply);
 	}
+
 	function startEditingDiscussion() {
 		editingDiscussion = true;
 		editedTitle = discussion.title;
 		editedDescription = discussion.description;
 	}
+
 	async function saveDiscussionChanges() {
 		await updateDiscussion($page.params.id, {
 			title: editedTitle,

@@ -49,6 +49,7 @@
 		const result = await signInWithPopup(auth, provider);
 		const user = result.user;
 		await createUserProfile(user.uid, user.displayName, user.email);
+		localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
 		goto(redirectTo);
 	  }  catch (err) {
       error = getErrorMessage(err.code);
@@ -63,6 +64,8 @@
 			loading = true;
 			storeRedirectTo();
 			await signInWithEmailAndPassword(auth, email, password);
+			const user = auth.currentUser;
+			localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
 			goto(redirectTo);
 		} catch (err) {
 			error = getErrorMessage(err.code);
@@ -78,17 +81,13 @@
 			storeRedirectTo();
 			const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 			const user = userCredential.user;
-
-			// Prompt the user for their display name
 			const displayName = prompt('Please enter your display name:');
-
 			try {
 				await createUserProfile(user.uid, displayName, user.email);
 			} catch (error) {
 				console.error('Error creating user profile:', error);
-				// Handle the error, e.g., show an error message to the user
 			}
-
+			localStorage.setItem('user', JSON.stringify(user)); // Store user data in localStorage
 			goto(redirectTo);
 		} catch (err) {
 			error = getErrorMessage(err.code);

@@ -13,7 +13,7 @@ import {
   updateDoc
 } from 'firebase/firestore';
 import { incrementCategoryDiscussionCount } from './categoriesApi';
-import { addNewTag, getExistingTag, updateTagDiscussionCount } from './tagsApi';
+import { addNewTag, getExistingTag, incrementTagDiscussionCount } from './tagsApi';
 
 const discussionsCollection = collection(db, 'discussions');
 
@@ -38,7 +38,7 @@ export async function addDiscussion(discussion) {
   for (const tag of discussion.tags) {
     const existingTag = await getExistingTag(tag);
     if (existingTag) {
-      await updateTagDiscussionCount(existingTag.id);
+      await incrementTagDiscussionCount(existingTag.name);
     } else {
       await addNewTag(tag);
     }

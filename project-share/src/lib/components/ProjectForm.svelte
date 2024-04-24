@@ -1,14 +1,17 @@
+<!-- ProjectForm.svelte -->
 <script>
-    import { Form, Row, Col, Input, Select, Badge, Button } from 'spaper';
+    import { Row, Col, Input, Select, Badge, Button } from 'spaper';
     import { createEventDispatcher } from 'svelte';
     import { getTags } from '$lib/api/tagsApi';
     import { getCategories } from '$lib/api/categoriesApi';
+    import CollaboratorList from '$lib/components/CollaboratorList.svelte';
   
     export let projectData = {
       name: '',
       description: '',
       category: '',
       tags: [],
+      collaborators: [],
     };
   
     let suggestions = [];
@@ -28,6 +31,10 @@
       projectData.tags = projectData.tags.filter((_, i) => i !== index);
     }
   
+    function handleCollaboratorsUpdated(event) {
+      projectData.collaborators = event.detail;
+    }
+  
     let loadingData = loadData();
   
     async function loadData() {
@@ -41,6 +48,10 @@
     function handleSubmit() {
       dispatch('submit', { projectData, isValid });
     }
+
+    function handleCancel() {
+    history.back();
+  }
   </script>
   
   {#await loadingData}
@@ -83,7 +94,13 @@
       </Row>
       <Row>
         <Col>
+          <CollaboratorList on:collaboratorsUpdated={handleCollaboratorsUpdated} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <button type="submit" disabled={!isValid}>Save</button>
+          <Button on:click={handleCancel}>Cancel</Button>
         </Col>
       </Row>
     </form>

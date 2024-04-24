@@ -1,36 +1,41 @@
 import { db } from '$lib/firebase';
-import { collection, getDocs, doc, updateDoc, increment } from 'firebase/firestore';
+import { collection, getDocs, query, where, doc, updateDoc, increment } from 'firebase/firestore';
 
 const categoryCollection = collection(db, 'categories');
 
 export async function getCategories() {
   const querySnapshot = await getDocs(categoryCollection);
-  const categories = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return categories;
+  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
-export async function updateCategoryProjectCount(categoryId, increment) {
-  const categoryRef = doc(db, 'categories', categoryId);
-  await updateDoc(categoryRef, { projectCount: increment });
+async function getCategoryRefByName(categoryName) {
+  const q = query(categoryCollection, where('name', '==', categoryName));
+  const querySnapshot = await getDocs(q);
+  
+  if (querySnapshot.empty) {
+    throw new Error(`Category "${categoryName}" not found`);
+  }
+  
+  return querySnapshot.docs[0].ref;
 }
 
-export async function updateCategoryDiscussionCount(categoryId, increment) {
-  const categoryRef = doc(db, 'categories', categoryId);
-  await updateDoc(categoryRef, { discussionCount: increment });
+async function updateCategoryField(categoryName, field, value) {
+  const categoryRef = await getCategoryRefByName(categoryName);
+  await updateDoc(categoryRef, { [field]: value });
 }
 
-export async function incrementCategoryProjectCount(categoryId) {
-  await updateCategoryProjectCount(categoryId, increment(1));
+export async function incrementCategoryProjectCount(categoryName) {
+  await updateCategoryField(categoryName, 'projectCount', increment(1));
 }
 
-export async function decrementCategoryProjectCount(categoryId) {
-  await updateCategoryProjectCount(categoryId, increment(-1));
+export async function decrementCategoryProjectCount(categoryName) {
+  await updateCategoryField(categoryName, 'projectCount', increment(-1));
 }
 
-export async function incrementCategoryDiscussionCount(categoryId) {
-  await updateCategoryDiscussionCount(categoryId, increment(1));
+export async function incrementCategoryDiscussionCount(categoryName) {
+  await updateCategoryField(categoryName, 'discussionCount', increment(1));
 }
 
-export async function decrementCategoryDiscussionCount(categoryId) {
-  await updateCategoryDiscussionCount(categoryId, increment(-1));
+export async function decrementCategoryDiscussionCount(categoryName) {
+  await updateCategoryField(categoryName, 'discussionCount', increment(-1));
 }

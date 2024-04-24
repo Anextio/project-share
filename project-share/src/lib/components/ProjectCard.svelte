@@ -14,8 +14,8 @@
   
 	async function handleDeleteProject() {
 	  if (confirm('Are you sure you want to delete this project?')) {
-		await deleteProject(project.id).then(() => goto('/profile'));
-		
+		await deleteProject(project.id);
+		history.back()
 	  }
 	}
   </script>
